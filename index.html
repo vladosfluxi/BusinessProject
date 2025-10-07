@@ -62,5 +62,141 @@
     <a href="#" class="btn btn-signup">Sign Up</a>
   </div>
 </nav>
+
+
+<!-- section -->
+ <section class="apartment-filter">
+  <div class="container">
+    <h2>Filter Apartments</h2>
+
+    <form class="filter-form" id="filterForm">
+
+      <!-- Property Type -->
+      <div class="filter-group">
+        <label for="propertyType">Property Type</label>
+        <select id="propertyType" name="propertyType">
+          <option value="">All</option>
+          <option value="apartment">Apartments</option>
+          <option value="house">Houses</option>
+        </select>
+      </div>
+
+      <!-- Location -->
+      <div class="filter-group">
+        <label for="location">Location</label>
+        <select id="location" name="location">
+          <option value="">All</option>
+          <option value="sofia">Sofia</option>
+          <option value="varna">Varna</option>
+          <option value="burgas">Burgas</option>
+          <option value="plovdiv">Plovdiv</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+
+      <!-- Apartment Type -->
+      <div class="filter-group">
+        <label for="apartmentType">Apartment Type</label>
+        <select id="apartmentType" name="apartmentType">
+          <option value="">All</option>
+          <option value="1room">1-room</option>
+          <option value="2room">2-room</option>
+          <option value="3room">3-room</option>
+          <option value="4room">4-room</option>
+          <option value="multiroom">Multi-room</option>
+        </select>
+      </div>
+
+      <!-- Sale Type -->
+      <div class="filter-group">
+        <label for="saleType">Sale Type</label>
+        <select id="saleType" name="saleType">
+          <option value="">All</option>
+          <option value="secondary">Resale</option>
+          <option value="investor">From Investor</option>
+        </select>
+      </div>
+
+      <!-- Distance to Sea -->
+      <div class="filter-group">
+        <label for="seaDistance">Distance to Sea</label>
+        <select id="seaDistance" name="seaDistance">
+          <option value="">All</option>
+          <option value="0-100">0–100 m</option>
+          <option value="100-500">100–500 m</option>
+          <option value="500-1000">500–1000 m</option>
+          <option value="1000+">1000+ m</option>
+        </select>
+      </div>
+
+      <!-- Price (with wrapper) -->
+      <div class="filter-group">
+        <label>Price (€)</label>
+        <div class="range-wrapper">
+          <input type="number" id="priceMin" name="priceMin" placeholder="0">
+          <span>–</span>
+          <input type="number" id="priceMax" name="priceMax" placeholder="300000+">
+        </div>
+      </div>
+
+      <!-- Area (with wrapper) -->
+      <div class="filter-group">
+        <label>Area (m²)</label>
+        <div class="range-wrapper">
+          <input type="number" id="areaMin" name="areaMin" placeholder="0">
+          <span>–</span>
+          <input type="number" id="areaMax" name="areaMax" placeholder="300+">
+        </div>
+      </div>
+
+      <!-- Price per m2 (with wrapper) -->
+      <div class="filter-group">
+        <label>Price per m² (€)</label>
+        <div class="range-wrapper">
+          <input type="number" id="priceM2Min" name="priceM2Min" placeholder="0">
+          <span>–</span>
+          <input type="number" id="priceM2Max" name="priceM2Max" placeholder="2000+">
+        </div>
+      </div>
+
+      <!-- Furnished -->
+      <div class="filter-group">
+        <label for="furnished">Furnished</label>
+        <select id="furnished" name="furnished">
+          <option value="">All</option>
+          <option value="yes">Yes</option>
+          <option value="no">No</option>
+        </select>
+      </div>
+
+      <!-- View -->
+      <div class="filter-group">
+        <label>View</label>
+        <div class="checkboxes">
+          <label><input type="checkbox" name="view" value="sea"> Sea</label>
+          <label><input type="checkbox" name="view" value="mountain"> Mountain</label>
+          <label><input type="checkbox" name="view" value="city"> City</label>
+          <label><input type="checkbox" name="view" value="lake"> Lake</label>
+          <label><input type="checkbox" name="view" value="pool"> Pool</label>
+          <label><input type="checkbox" name="view" value="forest"> Forest</label>
+        </div>
+      </div>
+
+      <!-- Floor -->
+      <div class="filter-group">
+        <label>Floor</label>
+        <div class="checkboxes">
+          <label><input type="checkbox" name="floor" value="ground"> Ground Floor</label>
+          <label><input type="checkbox" name="floor" value="top"> Top Floor</label>
+          <label><input type="checkbox" name="floor" value="no-ground"> Without Ground</label>
+          <label><input type="checkbox" name="floor" value="no-top"> Without Top</label>
+          <label><input type="checkbox" name="floor" value="no-ground-top"> Without Ground & Top</label>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</section>
+<script src="scripts/main.js"></script>
 </body>
 </html>
