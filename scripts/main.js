@@ -29,7 +29,7 @@ function getFilters() {
 }
 
 // Listen for changes on the entire form
-filterForm.addEventListener("change", () => {
+  filterForm.addEventListener("change", () => {
   const filters = getFilters();
   console.log("Filters updated:", filters);
 
