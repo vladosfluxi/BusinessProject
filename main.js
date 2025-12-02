@@ -1,3 +1,5 @@
+// main.js
+
 const apartmentsGrid = document.getElementById('apartmentsGrid');
 
 async function fetchApartments() {
