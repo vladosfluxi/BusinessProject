@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/contactus.css">
+    <title>Contact Us - Real Estate Bulgaria</title>
+</head>
+<body>
+    <header class="mainHeader">
+        <h1>RealEstate Bulgaria</h1>
+        <div class="contactInfo">
+            <div class="phoneNumber">
+                <p>+359 123 45 67 89</p>
+            </div>
+            <hr id="headerHr">
+            <div class="socialMediaToContact">
+                <a href="#" class="socMediaIcon"><img src="../assets/telegram.png" alt="telegram" class="contactIcon" id="telegramIcon"></a>
+                <a href="#" class="socMediaIcon"><img src="../assets/viber.png" alt="viber" class="contactIcon" id="viberIcon"></a>
+                <a href="#" class="socMediaIcon"><img src="../assets/whatsapp.png" alt="whatsapp" class="contactIcon" id="whatsappIcon"></a>
+            </div>
+        </div>
+    </header>
+
+    <nav class="navbar">
+        <ul class="nav-links">
+            <li><a href="../index.html">Home</a></li>
+            <li class="dropdown">
+                <a href="#">Buy ▼</a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Residential</a></li>
+                    <li><a href="#">Commercial</a></li>
+                    <li><a href="#">Luxury</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#">Rent ▼</a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Houses</a></li>
+                    <li><a href="#">Apartments</a></li>
+                </ul>
+            </li>
+            <li><a href="aboutus.html">About</a></li>
+            <li><a href="contactus.html">Contact</a></li>
+        </ul>
+
+        <div class="navbar-right">
+            <select id="languageSelector">
+                <option value="en">EN</option>
+                <option value="ru">RU</option>
+                <option value="bg">BG</option>
+            </select>
+
+            <a href="#" class="btn btn-apartment">Sell</a>
+            <a href="#" class="btn btn-login">Log In</a>
+            <a href="#" class="btn btn-signup">Sign Up</a>
+        </div>
+    </nav>
+
+    <!-- CONTACT HERO SECTION -->
+    <section class="contact-hero">
+        <div class="hero-overlay">
+            <h1>Get In Touch</h1>
+            <p>We're here to help you find your perfect property</p>
+        </div>
+    </section>
+
+    <!-- CONTACT CONTENT -->
+    <section class="contact-content">
+        <div class="contact-wrapper">
+            
+            <!-- CONTACT FORM -->
+            <div class="contact-form-container">
+                <h2>Send Us a Message</h2>
+                <p class="form-description">Fill out the form below and our team will get back to you within 24 hours.</p>
+                
+                <div class="contact-form">
+                    <div class="form-group">
+                        <label for="fullName">Full Name *</label>
+                        <input type="text" id="fullName" name="fullName" required placeholder="Enter your full name">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required placeholder="your@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number *</label>
+                            <input type="tel" id="phone" name="phone" required placeholder="+359 123 456 789">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="subject">Subject *</label>
+                        <select id="subject" name="subject" required>
+                            <option value="">Select a subject</option>
+                            <option value="buying">Buying Property</option>
+                            <option value="selling">Selling Property</option>
+                            <option value="renting">Renting Property</option>
+                            <option value="investment">Investment Inquiry</option>
+                            <option value="general">General Question</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Message *</label>
+                        <textarea id="message" name="message" rows="6" required placeholder="Tell us how we can help you..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-submit" onclick="handleSubmit(event)">Send Message</button>
+                </div>
+            </div>
+
+            <!-- CONTACT INFO -->
+            <div class="contact-info-container">
+                <h2>Contact Information</h2>
+                
+                <div class="info-card">
+                    <div class="info-icon">📍</div>
+                    <div class="info-content">
+                        <h3>Office Address</h3>
+                        <p>123 Vitosha Boulevard<br>Sofia 1000, Bulgaria</p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-icon">📞</div>
+                    <div class="info-content">
+                        <h3>Phone</h3>
+                        <p>+359 123 45 67 89<br>Mon-Fri: 9:00 AM - 6:00 PM</p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-icon">✉️</div>
+                    <div class="info-content">
+                        <h3>Email</h3>
+                        <p>info@realestate.bg<br>support@realestate.bg</p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-icon">💬</div>
+                    <div class="info-content">
+                        <h3>Social Media</h3>
+                        <div class="social-links">
+                            <a href="#" class="social-link">
+                                <img src="../assets/telegram.png" alt="Telegram" style="width: 32px; height: 32px;">
+                            </a>
+                            <a href="#" class="social-link">
+                                <img src="../assets/viber.png" alt="Viber" style="width: 32px; height: 32px;">
+                            </a>
+                            <a href="#" class="social-link">
+                                <img src="../assets/whatsapp.png" alt="WhatsApp" style="width: 32px; height: 32px;">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="office-hours">
+                    <h3>Office Hours</h3>
+                    <ul>
+                        <li><strong>Monday - Friday:</strong> 9:00 AM - 6:00 PM</li>
+                        <li><strong>Saturday:</strong> 10:00 AM - 2:00 PM</li>
+                        <li><strong>Sunday:</strong> Closed</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAP SECTION -->
+    <section class="map-section">
+        <div class="map-container">
+            <h2>Visit Our Office</h2>
+            <div class="map-placeholder">
+                <p>🗺️ Map showing our office location at<br>123 Vitosha Boulevard, Sofia 1000</p>
+                <p style="font-size: 0.9rem; color: #666; margin-top: 10px;">
+                    (In a real implementation, this would be an embedded Google Maps iframe)
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section class="faq-section">
+        <div class="faq-container">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <h3>How quickly will I receive a response?</h3>
+                    <p>We typically respond to all inquiries within 24 hours during business days.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Do you charge for consultations?</h3>
+                    <p>Initial consultations are completely free. We'll discuss your needs and how we can help.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Can I schedule a property viewing?</h3>
+                    <p>Absolutely! Contact us with the property ID and we'll arrange a convenient time.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Do you speak English?</h3>
+                    <p>Yes, our team is fluent in Bulgarian, English, and Russian.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>About</h3>
+                <p>We connect you with the best real estate offers across Bulgaria. Whether you want to buy, sell, or rent — we make it easy and secure.</p>
+            </div>
+
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="#">Buy</a></li>
+                    <li><a href="#">Rent</a></li>
+                    <li><a href="#">Sell</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p><strong>Phone:</strong> +359 123 45 67 89</p>
+                <p><strong>Email:</strong> info@realestate.bg</p>
+                <div class="footer-socials">
+                    <a href="#"><img src="assets/telegram.png" alt="Telegram"></a>
+                    <a href="#"><img src="assets/viber.png" alt="Viber"></a>
+                    <a href="#"><img src="assets/whatsapp.png" alt="WhatsApp"></a>
+                </div>
+            </div>
+        </div>
+
+        <hr class="footer-divider">
+
+        <div class="footer-bottom">
+            <p>© 2025 RealEstate Bulgaria. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function handleSubmit(event) {
+            event.preventDefault();
+            
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+
+            if (!fullName || !email || !phone || !subject || !message) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+
+            // Simulate form submission
+            alert('Thank you for your message! We will get back to you within 24 hours.');
+            
+            // Reset form
+            document.getElementById('fullName').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('phone').value = '';
+            document.getElementById('subject').value = '';
+            document.getElementById('message').value = '';
+        }
+    </script>
+</body>
+</html>
