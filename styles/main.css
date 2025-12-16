@@ -170,6 +170,7 @@ select {
   font-size: 0.9rem;
   margin-top: 10px;
   display: inline-block;
+  text-decoration: none;
 }
 
 .btn-view:hover {
@@ -260,14 +261,15 @@ select {
 }
 
 .apartments-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  display: flex;
+  flex-direction: column;
   gap: 25px;
 }
 
-/* Apartment Card */
+/* Apartment Card - FIXED TO DISPLAY IN ONE LINE */
 .apartment-card {
   display: flex;
+  flex-direction: row;
   align-items: flex-start;
   background-color: #fdfdfd;
   border-radius: 16px;
@@ -275,8 +277,9 @@ select {
   overflow: hidden;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   cursor: pointer;
-  padding: 10px;
-  gap: 18px;
+  padding: 15px;
+  gap: 20px;
+  width: 100%;
 }
 
 .apartment-card:hover {
@@ -285,8 +288,8 @@ select {
 }
 
 .apartment-card img {
-  width: 200px;
-  height: auto;
+  width: 220px;
+  height: 165px;
   border-radius: 12px;
   object-fit: cover;
   flex-shrink: 0;
@@ -294,11 +297,14 @@ select {
 
 .apartment-info {
   flex: 1;
-  padding: 10px 0;
+  padding: 5px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .apartment-info h3 {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   margin-bottom: 8px;
   color: #333;
 }
@@ -317,7 +323,7 @@ select {
 .apartment-info .price {
   color: #007bff;
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 1.1rem;
   margin-top: 6px;
 }
 
@@ -325,9 +331,20 @@ select {
   font-size: 0.85rem;
   color: #777;
   margin-top: 8px;
+  margin-bottom: 10px;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 1200px) {
+  .apartment-listing {
+    margin-left: 400px;
+  }
+  
+  .apartment-filter .container {
+    margin-left: 50px;
+  }
+}
+
+@media (max-width: 900px) {
   .apartment-card {
     flex-direction: column;
     align-items: center;
@@ -337,6 +354,7 @@ select {
   .apartment-card img {
     width: 100%;
     max-width: 400px;
+    height: auto;
   }
 
   .apartment-listing {
@@ -352,6 +370,7 @@ select {
   .apartment-filter .container {
     margin-left: auto;
     margin-right: auto;
+    max-width: 100%;
   }
 
   h1 {

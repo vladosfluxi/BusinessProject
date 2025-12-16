@@ -68,7 +68,7 @@ function displayApartments(apartments) {
           · ${apt.furnished ? 'Furnished' : 'Unfurnished'} 
           · ${apt.view.map(v => v.charAt(0).toUpperCase() + v.slice(1)).join(', ')} View
         </p>
-        <a href="#" class="btn btn-view" onclick="viewApartment(${apt.id}); return false;">View Details</a>
+        <a href="pages/apartment-description.html?id=${apt.id}" class="btn btn-view">View Details</a>
       </div>
     </div>
   `).join('');
@@ -102,55 +102,23 @@ function getOrdinalSuffix(num) {
   return 'th';
 }
 
-// View single apartment details
-async function viewApartment(id) {
-  try {
-    const response = await fetch(`${API_URL}/apartments/${id}`);
-    const apartment = await response.json();
-    
-    // Create a nice modal-style alert
-    const details = `
-📍 ${apartment.title}
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-Location: ${apartment.location}, Bulgaria
-Price: €${apartment.price.toLocaleString()}
-Area: ${apartment.area} m²
-Price per m²: €${apartment.pricePerM2}/m²
-
-${apartment.floor ? `Floor: ${apartment.floor}` : 'Property Type: House'}
-Furnished: ${apartment.furnished ? 'Yes' : 'No'}
-View: ${apartment.view.join(', ')}
-
-${apartment.description}
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Contact us to schedule a viewing!
-    `;
-    
-    alert(details);
-    // You can replace this with a proper modal later
-  } catch (error) {
-    console.error('Error loading apartment details:', error);
-    alert('Unable to load apartment details. Please try again.');
-  }
-}
-
 // Event listeners
 document.addEventListener('DOMContentLoaded', () => {
   loadApartments();
   
   // Add real-time filtering
   const form = document.getElementById('filterForm');
-  form.addEventListener('change', filterApartments);
-  
-  // Add input event for number fields (with debounce)
-  let debounceTimer;
-  const numberInputs = form.querySelectorAll('input[type="number"]');
-  numberInputs.forEach(input => {
-    input.addEventListener('input', () => {
-      clearTimeout(debounceTimer);
-      debounceTimer = setTimeout(filterApartments, 500);
+  if (form) {
+    form.addEventListener('change', filterApartments);
+    
+    // Add input event for number fields (with debounce)
+    let debounceTimer;
+    const numberInputs = form.querySelectorAll('input[type="number"]');
+    numberInputs.forEach(input => {
+      input.addEventListener('input', () => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(filterApartments, 500);
+      });
     });
-  });
+  }
 });

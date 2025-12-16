@@ -26,7 +26,7 @@
 
     <nav class="navbar">
         <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
+            <li><a href="../index.html">Home</a></li>
             <li class="dropdown">
                 <a href="#">Buy ▼</a>
                 <ul class="dropdown-menu">
@@ -42,51 +42,55 @@
                     <li><a href="#">Apartments</a></li>
                 </ul>
             </li>
-            <li><a href="#">Contact</a></li>
+            <li><a href="../pages/aboutus.html">About</a></li>
+            <li><a href="../pages/contactus.html">Contact</a></li>
         </ul>
     </nav>
 
+    <!-- Back to Listings Button -->
+    <div style="max-width: 1200px; margin: 20px auto; padding: 0 20px;">
+        <a href="../index.html" style="color: #3498db; text-decoration: none; font-size: 16px;">
+            ← Back to Listings
+        </a>
+    </div>
+
     <!-- APARTMENT DESCRIPTION SECTION -->
-<section class="apartment-description">
-    <div class="description-container">
-        <!-- Gallery / Main Image -->
-        <div class="apartment-gallery">
-            <img src="../assets/apartments/apartment-1.jpeg" alt="Apartment Main Image" class="main-img">
-            <div class="thumbnails">
-                <img src="../assets/apartments/apartment-1.jpeg" alt="Apartment Image 1">
-                <img src="../assets/apartments/apartment-1.jpeg" alt="Apartment Image 2">
-                <img src="../assets/apartments/apartment-1.jpeg" alt="Apartment Image 3">
+    <section class="apartment-description">
+        <div class="description-container">
+            <!-- Gallery / Main Image -->
+            <div class="apartment-gallery">
+                <img src="../assets/apartments/apartment-1.jpeg" alt="Apartment Main Image" class="main-img">
+                <div class="thumbnails">
+                    <img src="../assets/apartments/apartment-1.jpeg" alt="Apartment Image 1">
+                    <img src="../assets/apartments/apartment-1.jpeg" alt="Apartment Image 2">
+                    <img src="../assets/apartments/apartment-1.jpeg" alt="Apartment Image 3">
+                </div>
+            </div>
+
+            <!-- Apartment Info -->
+            <div class="apartment-details">
+                <h2>Loading...</h2>
+                <p class="price">€ 0</p>
+                <p><strong>Location:</strong> Loading...</p>
+                <p><strong>Area:</strong> 0 m²</p>
+                <p><strong>Floor:</strong> Loading...</p>
+                <p><strong>Furnished:</strong> Loading...</p>
+                <p><strong>View:</strong> Loading...</p>
+
+                <h3>Description</h3>
+                <p>
+                    Loading apartment details...
+                </p>
+
+                <h3>Key Features</h3>
+                <ul>
+                    <li>Loading...</li>
+                </ul>
+
+                <a href="../pages/contactus.html" class="contact-btn">Contact Agent</a>
             </div>
         </div>
-
-        <!-- Apartment Info -->
-        <div class="apartment-details">
-            <h2>Luxury 3-Room Apartment in Sofia</h2>
-            <p class="price">€ 120,000</p>
-            <p><strong>Location:</strong> Sofia, Lozenets</p>
-            <p><strong>Area:</strong> 95 m²</p>
-            <p><strong>Floor:</strong> 2nd Floor / 5</p>
-            <p><strong>Furnished:</strong> Yes</p>
-            <p><strong>View:</strong> City & Mountains</p>
-
-            <h3>Description</h3>
-            <p>
-                This modern 3-room apartment offers the perfect blend of comfort and style. Located in the heart of Lozenets, Sofia, it features a spacious living room, fully equipped kitchen, and two cozy bedrooms. Enjoy panoramic city and mountain views from the balcony. Ideal for families or investors looking for a prime location.
-            </p>
-
-            <h3>Key Features</h3>
-            <ul>
-                <li>3 Bedrooms, 2 Bathrooms</li>
-                <li>Balcony with panoramic view</li>
-                <li>Central heating & air conditioning</li>
-                <li>Secure building with elevator</li>
-                <li>Walking distance to metro and amenities</li>
-            </ul>
-
-            <a href="contact.html" class="contact-btn">Contact Agent</a>
-        </div>
-    </div>
-</section>
+    </section>
 
     <footer class="main-footer">
         <div class="footer-container">
@@ -97,10 +101,11 @@
             <div class="footer-section">
                 <h3>Quick Links</h3>
                 <ul>
+                    <li><a href="../index.html">Home</a></li>
                     <li><a href="#">Buy</a></li>
                     <li><a href="#">Rent</a></li>
                     <li><a href="#">Sell</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li><a href="../pages/contactus.html">Contact</a></li>
                 </ul>
             </div>
             <div class="footer-section">
@@ -114,6 +119,9 @@
             <p>© 2025 RealEstate Bulgaria. All rights reserved.</p>
         </div>
     </footer>
+
+    <!-- Load the dynamic apartment details script -->
+    <script src="../js/apartment-details.js"></script>
 
 </body>
 </html>
