@@ -232,48 +232,7 @@
     color: #555;
 }
 
-/* FAQ SECTION */
-.faq-section {
-    padding: 80px 20px;
-    background-color: #f9fafb;
-}
 
-.faq-container {
-    max-width: 1100px;
-    margin: 0 auto;
-}
-
-.faq-container h2 {
-    text-align: center;
-    font-size: 2.2rem;
-    margin-bottom: 50px;
-    color: #333;
-}
-
-.faq-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-}
-
-.faq-item {
-    background: white;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-}
-
-.faq-item h3 {
-    font-size: 1.15rem;
-    margin-bottom: 12px;
-    color: #667eea;
-}
-
-.faq-item p {
-    color: #666;
-    line-height: 1.6;
-    font-size: 0.95rem;
-}
 
 /* RESPONSIVE */
 @media (max-width: 768px) {

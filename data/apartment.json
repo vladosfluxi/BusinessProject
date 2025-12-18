@@ -17,7 +17,7 @@
     "view": ["city"],
     "floorType": ["no-ground", "no-top"],
     "description": "Beautiful modern apartment in the heart of Sofia with city views and all amenities nearby",
-    "image": "assets/photo-1501594907352-04cda38ebc29.jpeg"
+    "image": "../assets/photo-1501594907352-04cda38ebc29.jpeg"
   },
   {
     "id": 2,
@@ -35,7 +35,7 @@
     "view": ["sea"],
     "floorType": ["no-ground", "no-top"],
     "description": "Stunning sea view apartment with spacious balcony, perfect for summer living",
-    "image": "assets/apartments/71C1E1CA-5783-4351-A301506AF6FD4A28.jpeg"
+    "image": "../assets/apartments/71C1E1CA-5783-4351-A301506AF6FD4A28.jpeg"
   },
   {
     "id": 3,
@@ -53,7 +53,7 @@
     "view": ["mountain"],
     "floorType": ["no-ground", "no-top"],
     "description": "Perfect family apartment with mountain views and quiet neighborhood",
-    "image": "assets/photo-1501594907352-04cda38ebc29.jpeg"
+    "image": "../assets/photo-1501594907352-04cda38ebc29.jpeg"
   },
   {
     "id": 4,
@@ -71,7 +71,7 @@
     "view": ["city", "mountain"],
     "floorType": ["top"],
     "description": "Exclusive penthouse with panoramic views of Sofia and premium finishes",
-    "image": "assets/apartments/71C1E1CA-5783-4351-A301506AF6FD4A28.jpeg"
+    "image": "../assets/apartments/71C1E1CA-5783-4351-A301506AF6FD4A28.jpeg"
   },
   {
     "id": 5,
@@ -89,7 +89,7 @@
     "view": ["sea", "pool"],
     "floorType": ["ground"],
     "description": "Perfect investment property near the beach with pool access",
-    "image": "assets/photo-1501594907352-04cda38ebc29.jpeg"
+    "image": "../assets/photo-1501594907352-04cda38ebc29.jpeg"
   },
   {
     "id": 6,
@@ -107,7 +107,7 @@
     "view": ["sea", "forest"],
     "floorType": [],
     "description": "Spacious family house with private garden and sea glimpses",
-    "image": "assets/apartments/71C1E1CA-5783-4351-A301506AF6FD4A28.jpeg"
+    "image": "../assets/apartments/71C1E1CA-5783-4351-A301506AF6FD4A28.jpeg"
   },
   {
     "id": 7,
@@ -125,7 +125,7 @@
     "view": ["city"],
     "floorType": ["no-ground", "no-top"],
     "description": "Modern loft-style apartment in the city center with high ceilings",
-    "image": "assets/photo-1501594907352-04cda38ebc29.jpeg"
+    "image": "../assets/photo-1501594907352-04cda38ebc29.jpeg"
   },
   {
     "id": 8,
@@ -143,7 +143,7 @@
     "view": ["sea", "lake"],
     "floorType": [],
     "description": "Beautiful villa right on the beach with private access to the sea",
-    "image": "assets/apartments/71C1E1CA-5783-4351-A301506AF6FD4A28.jpeg"
+    "image": "../assets/apartments/71C1E1CA-5783-4351-A301506AF6FD4A28.jpeg"
   },
   {
     "id": 9,
@@ -161,7 +161,7 @@
     "view": ["city", "mountain"],
     "floorType": ["no-ground", "no-top"],
     "description": "Bright and airy apartment with dual city and mountain views",
-    "image": "assets/photo-1501594907352-04cda38ebc29.jpeg"
+    "image": "../assets/photo-1501594907352-04cda38ebc29.jpeg"
   },
   {
     "id": 10,
@@ -179,6 +179,6 @@
     "view": ["sea", "city"],
     "floorType": ["top"],
     "description": "Stunning top floor penthouse with wraparound terrace and sea views",
-    "image": "assets/apartments/71C1E1CA-5783-4351-A301506AF6FD4A28.jpeg"
+    "image": ["../assets/apartments/apartment-1.jpeg","../assets/apartment/apartment-1.jpeg"]
   }
 ]

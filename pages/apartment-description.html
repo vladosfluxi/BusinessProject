@@ -1,127 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apartment Details - Real Estate Bulgaria</title>
-    <link rel="stylesheet" href="../styles/apartment-description-style.css">
-    <link rel="stylesheet" href="../styles/header.css">
-    <link rel="stylesheet" href="../styles/footer.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apartment Details - Real Estate Bulgaria</title>
+  <link rel="stylesheet" href="../styles/apartment-description-style.css">
+  <link rel="stylesheet" href="../styles/header.css">
+  <link rel="stylesheet" href="../styles/footer.css">
 </head>
 <body>
 
-    <header class="mainHeader">
-        <h1>RealEstate Bulgaria</h1>
-        <div class="contactInfo">
-            <div class="phoneNumber">
-                <p>+359 123 45 67 89</p>
-            </div>
-            <div class="socialMediaToContact">
-                <a href="#"><img src="../assets/telegram.png" alt="telegram" class="contactIcon"></a>
-                <a href="#"><img src="../assets/viber.png" alt="viber" class="contactIcon"></a>
-                <a href="#"><img src="../assets/whatsapp.png" alt="whatsapp" class="contactIcon"></a>
-            </div>
-        </div>
-    </header>
+  <header class="mainHeader">
+      <h1 data-i18n="companyName">RealEstate Bulgaria</h1>
+      <div class="contactInfo">
+          <div class="phoneNumber">
+              <p>+359 123 45 67 89</p>
+          </div>
+          <div class="socialMediaToContact">
+              <a href="#"><img src="../assets/telegram.png" alt="telegram" class="contactIcon"></a>
+              <a href="#"><img src="../assets/viber.png" alt="viber" class="contactIcon"></a>
+              <a href="#"><img src="../assets/whatsapp.png" alt="whatsapp" class="contactIcon"></a>
+          </div>
+      </div>
+  </header>
 
-    <nav class="navbar">
-        <ul class="nav-links">
-            <li><a href="../index.html">Home</a></li>
-            <li class="dropdown">
-                <a href="#">Buy ▼</a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">Residential</a></li>
-                    <li><a href="#">Commercial</a></li>
-                    <li><a href="#">Luxury</a></li>
-                </ul>
-            </li>
-            <li class="dropdown">
-                <a href="#">Rent ▼</a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">Houses</a></li>
-                    <li><a href="#">Apartments</a></li>
-                </ul>
-            </li>
-            <li><a href="../pages/aboutus.html">About</a></li>
-            <li><a href="../pages/contactus.html">Contact</a></li>
-        </ul>
-    </nav>
+  <nav class="navbar">
+      <ul class="nav-links">
+          <li><a href="../index.html" data-i18n="navHome">Home</a></li>
+          <li><a href="../pages/aboutus.html" data-i18n="navAbout">About</a></li>
+          <li><a href="../pages/contactus.html" data-i18n="navContact">Contact</a></li>
+      </ul>
+      <div class="navbar-right">
+          <select id="languageSelector">
+              <option value="en">EN</option>
+              <option value="ru">RU</option>
+              <option value="bg">BG</option>
+          </select>
+      </div>
+  </nav>
 
-    <!-- Back to Listings Button -->
-    <div style="max-width: 1200px; margin: 20px auto; padding: 0 20px;">
-        <a href="../index.html" style="color: #3498db; text-decoration: none; font-size: 16px;">
-            ← Back to Listings
-        </a>
-    </div>
+  <!-- Back to Listings Button -->
+  <div style="max-width: 1200px; margin: 20px auto; padding: 0 20px;">
+      <a href="../index.html" style="color: #3498db; text-decoration: none; font-size: 16px;" data-i18n="backToListings">
+          ← Back to Listings
+      </a>
+  </div>
 
-    <!-- APARTMENT DESCRIPTION SECTION -->
-    <section class="apartment-description">
-        <div class="description-container">
-            <!-- Gallery / Main Image -->
-            <div class="apartment-gallery">
-                <img src="../assets/apartments/apartment-1.jpeg" alt="Apartment Main Image" class="main-img">
-                <div class="thumbnails">
-                    <img src="../assets/apartments/apartment-1.jpeg" alt="Apartment Image 1">
-                    <img src="../assets/apartments/apartment-1.jpeg" alt="Apartment Image 2">
-                    <img src="../assets/apartments/apartment-1.jpeg" alt="Apartment Image 3">
-                </div>
-            </div>
+  <!-- APARTMENT DESCRIPTION SECTION -->
+  <section class="apartment-description">
+      <div class="description-container">
+          <!-- Gallery / Main Image -->
+          <div class="apartment-gallery">
+              <img src="../assets/apartments/apartment-1.jpeg" alt="Apartment Main Image" class="main-img">
+              <div class="thumbnails">
+                  <img src="../assets/apartments/apartment-1.jpeg" alt="Apartment Image 1">
+                  <img src="../assets/apartments/apartment-1.jpeg" alt="Apartment Image 2">
+                  <img src="../assets/apartments/apartment-1.jpeg" alt="Apartment Image 3">
+              </div>
+          </div>
 
-            <!-- Apartment Info -->
-            <div class="apartment-details">
-                <h2>Loading...</h2>
-                <p class="price">€ 0</p>
-                <p><strong>Location:</strong> Loading...</p>
-                <p><strong>Area:</strong> 0 m²</p>
-                <p><strong>Floor:</strong> Loading...</p>
-                <p><strong>Furnished:</strong> Loading...</p>
-                <p><strong>View:</strong> Loading...</p>
+          <!-- Apartment Info -->
+          <div class="apartment-details">
+              <h2 data-i18n="loading">Loading...</h2>
+              <p class="price">€ 0</p>
+              <p><strong data-i18n="location">Location</strong>: <span id="apt-location">Loading...</span></p>
+              <p><strong data-i18n="area">Area</strong>: <span id="apt-area">0 m²</span></p>
+              <p><strong data-i18n="floor">Floor</strong>: <span id="apt-floor">Loading...</span></p>
+              <p><strong data-i18n="furnished">Furnished</strong>: <span id="apt-furnished">Loading...</span></p>
+              <p><strong data-i18n="view">View</strong>: <span id="apt-view">Loading...</span></p>
 
-                <h3>Description</h3>
-                <p>
-                    Loading apartment details...
-                </p>
+              <h3 data-i18n="description">Description</h3>
+              <p id="apt-description">Loading apartment details...</p>
 
-                <h3>Key Features</h3>
-                <ul>
-                    <li>Loading...</li>
-                </ul>
+              <h3 data-i18n="keyFeatures">Key Features</h3>
+              <ul id="apt-features">
+                  <li>Loading...</li>
+              </ul>
 
-                <a href="../pages/contactus.html" class="contact-btn">Contact Agent</a>
-            </div>
-        </div>
-    </section>
+              <a href="../pages/contactus.html" class="contact-btn" data-i18n="contactAgent">Contact Agent</a>
+          </div>
+      </div>
+  </section>
 
-    <footer class="main-footer">
-        <div class="footer-container">
-            <div class="footer-section">
-                <h3>About</h3>
-                <p>We connect you with the best real estate offers across Bulgaria. Buy, sell, or rent with confidence.</p>
-            </div>
-            <div class="footer-section">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="../index.html">Home</a></li>
-                    <li><a href="#">Buy</a></li>
-                    <li><a href="#">Rent</a></li>
-                    <li><a href="#">Sell</a></li>
-                    <li><a href="../pages/contactus.html">Contact</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Contact</h3>
-                <p><strong>Phone:</strong> +359 123 45 67 89</p>
-                <p><strong>Email:</strong> info@realestate.bg</p>
-            </div>
-        </div>
-        <hr class="footer-divider">
-        <div class="footer-bottom">
-            <p>© 2025 RealEstate Bulgaria. All rights reserved.</p>
-        </div>
-    </footer>
+  <footer class="main-footer">
+      <div class="footer-container">
+          <div class="footer-section">
+              <h3 data-i18n="footerAbout">About</h3>
+              <p data-i18n="footerAboutText">We connect you with the best real estate offers across Bulgaria. Buy, sell, or rent with confidence.</p>
+          </div>
+          <div class="footer-section">
+              <h3 data-i18n="quickLinks">Quick Links</h3>
+              <ul>
+                  <li><a href="../index.html" data-i18n="navHome">Home</a></li>
+                  <li><a href="../pages/aboutus.html" data-i18n="navAbout">About</a></li>
+                  <li><a href="../pages/contactus.html" data-i18n="navContact">Contact</a></li>
+              </ul>
+          </div>
+          <div class="footer-section">
+              <h3 data-i18n="contact">Contact</h3>
+              <p><strong data-i18n="phone">Phone</strong>: +359 123 45 67 89</p>
+              <p><strong data-i18n="email">Email</strong>: info@realestate.bg</p>
+          </div>
+      </div>
+      <hr class="footer-divider">
+      <div class="footer-bottom">
+          <p data-i18n="footerRights">© 2025 RealEstate Bulgaria. All rights reserved.</p>
+      </div>
+  </footer>
 
-    <!-- Load the dynamic apartment details script -->
-    <script src="../js/apartment-details.js"></script>
+  <!-- Load Scripts -->
+  <script src="../js/translations.js"></script>
+  <script src="../js/apartment-details.js"></script>
 
 </body>
 </html>

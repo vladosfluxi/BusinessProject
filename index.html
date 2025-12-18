@@ -1,247 +1,223 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles/main.css">
-    <title>Real Estate Bulgaria</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Real Estate Bulgaria</title>
+  <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
-    <header class="mainHeader">
-        <h1>RealEstate Bulgaria</h1>
-        <div class="contactInfo">
-            <div class="phoneNumber">
-                <p>+359 123 45 67 89</p>
-            </div>
-            <hr id="headerHr">
-            <div class="socialMediaToContact">
-                <a href="#" class="socMediaIcon"><img src="assets/telegram.png" alt="telegram" class="contactIcon" id="telegramIcon"></a>
-                <a href="#" class="socMediaIcon"><img src="assets/viber.png" alt="viber" class="contactIcon" id="viberIcon"></a>
-                <a href="#" class="socMediaIcon"><img src="assets/whatsapp.png" alt="whatsapp" class="contactIcon" id="whatsappIcon"></a>
-            </div>
-        </div>
-    </header>
 
-    <nav class="navbar">
-        <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li class="dropdown">
-                <a href="#">Buy ▼</a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">Residential</a></li>
-                    <li><a href="#">Commercial</a></li>
-                    <li><a href="#">Luxury</a></li>
-                </ul>
-            </li>
-            <li class="dropdown">
-                <a href="#">Rent ▼</a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">Houses</a></li>
-                    <li><a href="#">Apartments</a></li>
-                </ul>
-            </li>
-            <li><a href="pages/aboutus.html">About</a></li>
-            <li><a href="pages/contactus.html">Contact</a></li>
+  <!-- HEADER -->
+  <header class="mainHeader">
+    <h1 data-i18n="companyName">RealEstate Bulgaria</h1>
+    <div class="contactInfo">
+      <div class="phoneNumber">
+        <p>+359 123 45 67 89</p>
+      </div>
+      <hr id="headerHr">
+      <div class="socialMediaToContact">
+        <a href="#" class="socMediaIcon"><img src="assets/telegram.png" alt="telegram" class="contactIcon"></a>
+        <a href="#" class="socMediaIcon"><img src="assets/viber.png" alt="viber" class="contactIcon"></a>
+        <a href="#" class="socMediaIcon"><img src="assets/whatsapp.png" alt="whatsapp" class="contactIcon"></a>
+      </div>
+    </div>
+  </header>
+
+  <!-- NAVIGATION -->
+  <nav class="navbar">
+    <ul class="nav-links">
+      <li><a href="index.html" data-i18n="navHome">Home</a></li>
+      <li><a href="pages/aboutus.html" data-i18n="navAbout">About</a></li>
+      <li><a href="pages/contactus.html" data-i18n="navContact">Contact</a></li>
+    </ul>
+
+    <div class="navbar-right">
+      <select id="languageSelector">
+        <option value="en">EN</option>
+        <option value="ru">RU</option>
+        <option value="bg">BG</option>
+      </select>
+    </div>
+  </nav>
+
+  <!-- FILTER SECTION -->
+  <section class="apartment-filter">
+    <div class="container">
+      <h2 data-i18n="filterTitle">Filter Apartments</h2>
+      <form class="filter-form" id="filterForm">
+
+        <!-- Property Type -->
+        <div class="filter-group">
+          <label data-i18n="propertyType">Property Type</label>
+          <select name="propertyType">
+            <option value="" data-i18n-option="propertyTypeAll">All</option>
+            <option value="apartment" data-i18n-option="propertyTypeApartment">Apartments</option>
+            <option value="house" data-i18n-option="propertyTypeHouse">Houses</option>
+          </select>
+        </div>
+
+        <!-- Location -->
+        <div class="filter-group">
+          <label data-i18n="location">Location</label>
+          <select name="location">
+            <option value="" data-i18n-option="locationAll">All</option>
+            <option value="sofia" data-i18n-option="locationSofia">Sofia</option>
+            <option value="varna" data-i18n-option="locationVarna">Varna</option>
+            <option value="burgas" data-i18n-option="locationBurgas">Burgas</option>
+            <option value="plovdiv" data-i18n-option="locationPlovdiv">Plovdiv</option>
+            <option value="other" data-i18n-option="locationOther">Other</option>
+          </select>
+        </div>
+
+        <!-- Apartment Type -->
+        <div class="filter-group">
+          <label data-i18n="apartmentType">Apartment Type</label>
+          <select name="apartmentType">
+            <option value="" data-i18n-option="apartmentTypeAll">All</option>
+            <option value="1-room" data-i18n-option="apartmentType1Room">1-room</option>
+            <option value="2-room" data-i18n-option="apartmentType2Room">2-room</option>
+            <option value="3-room" data-i18n-option="apartmentType3Room">3-room</option>
+            <option value="4-room" data-i18n-option="apartmentType4Room">4-room</option>
+            <option value="multi-room" data-i18n-option="apartmentTypeMulti">Multi-room</option>
+          </select>
+        </div>
+
+        <!-- Sale Type -->
+        <div class="filter-group">
+          <label data-i18n="saleType">Sale Type</label>
+          <select name="saleType">
+            <option value="" data-i18n-option="saleTypeAll">All</option>
+            <option value="secondary" data-i18n-option="saleTypeSecondary">Resale</option>
+            <option value="investor" data-i18n-option="saleTypeInvestor">From Investor</option>
+          </select>
+        </div>
+
+        <!-- Distance to Sea -->
+        <div class="filter-group">
+          <label data-i18n="seaDistance">Distance to Sea</label>
+          <select name="seaDistance">
+            <option value="" data-i18n-option="seaDistanceAll">All</option>
+            <option value="0-100" data-i18n-option="seaDistance0100">0–100 m</option>
+            <option value="100-500" data-i18n-option="seaDistance100500">100–500 m</option>
+            <option value="500-1000" data-i18n-option="seaDistance5001000">500–1000 m</option>
+            <option value="1000+" data-i18n-option="seaDistance1000Plus">1000+ m</option>
+          </select>
+        </div>
+
+        <!-- Price Range -->
+        <div class="filter-group">
+          <label data-i18n="price">Price (€)</label>
+          <div class="range-wrapper">
+            <input type="number" name="priceMin" data-i18n="priceMin" placeholder="0">
+            <span>–</span>
+            <input type="number" name="priceMax" data-i18n="priceMax" placeholder="300000+">
+          </div>
+        </div>
+
+        <!-- Area Range -->
+        <div class="filter-group">
+          <label data-i18n="area">Area (m²)</label>
+          <div class="range-wrapper">
+            <input type="number" name="areaMin" data-i18n="areaMin" placeholder="0">
+            <span>–</span>
+            <input type="number" name="areaMax" data-i18n="areaMax" placeholder="300+">
+          </div>
+        </div>
+
+        <!-- Price per m² -->
+        <div class="filter-group">
+          <label data-i18n="pricePerM2">Price per m² (€)</label>
+          <div class="range-wrapper">
+            <input type="number" name="priceM2Min" data-i18n="priceM2Min" placeholder="0">
+            <span>–</span>
+            <input type="number" name="priceM2Max" data-i18n="priceM2Max" placeholder="2000+">
+          </div>
+        </div>
+
+        <!-- Furnished -->
+        <div class="filter-group">
+          <label data-i18n="furnished">Furnished</label>
+          <select name="furnished">
+            <option value="" data-i18n-option="furnishedAll">All</option>
+            <option value="yes" data-i18n-option="furnishedYes">Yes</option>
+            <option value="no" data-i18n-option="furnishedNo">No</option>
+          </select>
+        </div>
+
+        <!-- View checkboxes -->
+        <div class="filter-group">
+          <label data-i18n="view">View</label>
+          <div class="checkboxes">
+            <label><input type="checkbox" name="view" value="sea"> <span data-i18n="viewSea">Sea</span></label>
+            <label><input type="checkbox" name="view" value="mountain"> <span data-i18n="viewMountain">Mountain</span></label>
+            <label><input type="checkbox" name="view" value="city"> <span data-i18n="viewCity">City</span></label>
+            <label><input type="checkbox" name="view" value="lake"> <span data-i18n="viewLake">Lake</span></label>
+            <label><input type="checkbox" name="view" value="pool"> <span data-i18n="viewPool">Pool</span></label>
+            <label><input type="checkbox" name="view" value="forest"> <span data-i18n="viewForest">Forest</span></label>
+          </div>
+        </div>
+
+        <!-- Floor checkboxes -->
+        <div class="filter-group">
+          <label data-i18n="floor">Floor</label>
+          <div class="checkboxes">
+            <label><input type="checkbox" name="floor" value="ground"> <span data-i18n="floorGround">Ground Floor</span></label>
+            <label><input type="checkbox" name="floor" value="top"> <span data-i18n="floorTop">Top Floor</span></label>
+            <label><input type="checkbox" name="floor" value="noGround"> <span data-i18n="floorNoGround">Without Ground</span></label>
+            <label><input type="checkbox" name="floor" value="noTop"> <span data-i18n="floorNoTop">Without Top</span></label>
+            <label><input type="checkbox" name="floor" value="noGroundTop"> <span data-i18n="floorNoGroundTop">Without Ground & Top</span></label>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </section>
+
+  <!-- APARTMENT LISTING -->
+  <section class="apartment-listing">
+    <div class="listing-container">
+      <h2><span data-i18n="availableApartments">Available Apartments</span> (<span id="apartmentCount">0</span>)</h2>
+      <div class="apartments-grid">
+        <p data-i18n="loadingApartments" style="text-align: center; padding: 40px; color: #999;">Loading apartments...</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="main-footer">
+    <div class="footer-container">
+      <div class="footer-section">
+        <h3 data-i18n="footerAbout">About</h3>
+        <p data-i18n="footerAboutText">We connect you with the best real estate offers across Bulgaria. Whether you want to buy, sell, or rent — we make it easy and secure.</p>
+      </div>
+      <div class="footer-section">
+        <h3 data-i18n="quickLinks">Quick Links</h3>
+        <ul>
+          <li><a href="index.html" data-i18n="navHome">Home</a></li>
+          <li><a href="pages/aboutus.html" data-i18n="navAbout">About</a></li>
+          <li><a href="pages/contactus.html" data-i18n="navContact">Contact</a></li>
         </ul>
-
-        <div class="navbar-right">
-            <select id="languageSelector">
-                <option value="en">EN</option>
-                <option value="ru">RU</option>
-                <option value="bg">BG</option>
-            </select>
-
-            <a href="#" class="btn btn-apartment">Sell</a>
-            <a href="#" class="btn btn-login">Log In</a>
-            <a href="#" class="btn btn-signup">Sign Up</a>
+      </div>
+      <div class="footer-section">
+        <h3 data-i18n="contact">Contact</h3>
+        <p><strong data-i18n="phone">Phone</strong>: +359 123 45 67 89</p>
+        <p><strong data-i18n="email">Email</strong>: info@realestate.bg</p>
+        <div class="footer-socials">
+          <a href="#"><img src="assets/telegram.png" alt="Telegram"></a>
+          <a href="#"><img src="assets/viber.png" alt="Viber"></a>
+          <a href="#"><img src="assets/whatsapp.png" alt="WhatsApp"></a>
         </div>
-    </nav>
+      </div>
+    </div>
+    <hr class="footer-divider">
+    <div class="footer-bottom">
+      <p data-i18n="footerRights">© 2025 RealEstate Bulgaria. All rights reserved.</p>
+    </div>
+  </footer>
 
-    <!-- FILTER SECTION -->
-    <section class="apartment-filter">
-        <div class="container">
-            <h2>Filter Apartments</h2>
+  <script src="js/translations.js"></script>
+  <script src="js/app.js"></script>
 
-            <form class="filter-form" id="filterForm">
-
-                <!-- Property Type -->
-                <div class="filter-group">
-                    <label for="propertyType">Property Type</label>
-                    <select id="propertyType" name="propertyType">
-                        <option value="">All</option>
-                        <option value="apartment">Apartments</option>
-                        <option value="house">Houses</option>
-                    </select>
-                </div>
-
-                <!-- Location -->
-                <div class="filter-group">
-                    <label for="location">Location</label>
-                    <select id="location" name="location">
-                        <option value="">All</option>
-                        <option value="sofia">Sofia</option>
-                        <option value="varna">Varna</option>
-                        <option value="burgas">Burgas</option>
-                        <option value="plovdiv">Plovdiv</option>
-                        <option value="other">Other</option>
-                    </select>
-                </div>
-
-                <!-- Apartment Type -->
-                <div class="filter-group">
-                    <label for="apartmentType">Apartment Type</label>
-                    <select id="apartmentType" name="apartmentType">
-                        <option value="">All</option>
-                        <option value="1room">1-room</option>
-                        <option value="2room">2-room</option>
-                        <option value="3room">3-room</option>
-                        <option value="4room">4-room</option>
-                        <option value="multiroom">Multi-room</option>
-                    </select>
-                </div>
-
-                <!-- Sale Type -->
-                <div class="filter-group">
-                    <label for="saleType">Sale Type</label>
-                    <select id="saleType" name="saleType">
-                        <option value="">All</option>
-                        <option value="secondary">Resale</option>
-                        <option value="investor">From Investor</option>
-                    </select>
-                </div>
-
-                <!-- Distance to Sea -->
-                <div class="filter-group">
-                    <label for="seaDistance">Distance to Sea</label>
-                    <select id="seaDistance" name="seaDistance">
-                        <option value="">All</option>
-                        <option value="0-100">0–100 m</option>
-                        <option value="100-500">100–500 m</option>
-                        <option value="500-1000">500–1000 m</option>
-                        <option value="1000+">1000+ m</option>
-                    </select>
-                </div>
-
-                <!-- Price -->
-                <div class="filter-group">
-                    <label>Price (€)</label>
-                    <div class="range-wrapper">
-                        <input type="number" id="priceMin" name="priceMin" placeholder="0">
-                        <span>–</span>
-                        <input type="number" id="priceMax" name="priceMax" placeholder="300000+">
-                    </div>
-                </div>
-
-                <!-- Area -->
-                <div class="filter-group">
-                    <label>Area (m²)</label>
-                    <div class="range-wrapper">
-                        <input type="number" id="areaMin" name="areaMin" placeholder="0">
-                        <span>–</span>
-                        <input type="number" id="areaMax" name="areaMax" placeholder="300+">
-                    </div>
-                </div>
-
-                <!-- Price per m2 -->
-                <div class="filter-group">
-                    <label>Price per m² (€)</label>
-                    <div class="range-wrapper">
-                        <input type="number" id="priceM2Min" name="priceM2Min" placeholder="0">
-                        <span>–</span>
-                        <input type="number" id="priceM2Max" name="priceM2Max" placeholder="2000+">
-                    </div>
-                </div>
-
-                <!-- Furnished -->
-                <div class="filter-group">
-                    <label for="furnished">Furnished</label>
-                    <select id="furnished" name="furnished">
-                        <option value="">All</option>
-                        <option value="yes">Yes</option>
-                        <option value="no">No</option>
-                    </select>
-                </div>
-
-                <!-- View -->
-                <div class="filter-group">
-                    <label>View</label>
-                    <div class="checkboxes">
-                        <label><input type="checkbox" name="view" value="sea"> Sea</label>
-                        <label><input type="checkbox" name="view" value="mountain"> Mountain</label>
-                        <label><input type="checkbox" name="view" value="city"> City</label>
-                        <label><input type="checkbox" name="view" value="lake"> Lake</label>
-                        <label><input type="checkbox" name="view" value="pool"> Pool</label>
-                        <label><input type="checkbox" name="view" value="forest"> Forest</label>
-                    </div>
-                </div>
-
-                <!-- Floor -->
-                <div class="filter-group">
-                    <label>Floor</label>
-                    <div class="checkboxes">
-                        <label><input type="checkbox" name="floor" value="ground"> Ground Floor</label>
-                        <label><input type="checkbox" name="floor" value="top"> Top Floor</label>
-                        <label><input type="checkbox" name="floor" value="no-ground"> Without Ground</label>
-                        <label><input type="checkbox" name="floor" value="no-top"> Without Top</label>
-                        <label><input type="checkbox" name="floor" value="no-ground-top"> Without Ground & Top</label>
-                    </div>
-                </div>
-
-            </form>
-        </div>
-    </section>
-
-    <!-- APARTMENT DISPLAY AREA -->
-    <section class="apartment-listing">
-        <div class="listing-container">
-            <h2>Available Apartments (<span id="apartmentCount">0</span>)</h2>
-
-            <div class="apartments-grid">
-                <!-- Apartments will be loaded here dynamically -->
-                <p style="text-align: center; padding: 40px; color: #999;">Loading apartments...</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="main-footer">
-        <div class="footer-container">
-            <div class="footer-section">
-                <h3>About</h3>
-                <p>We connect you with the best real estate offers across Bulgaria. Whether you want to buy, sell, or rent — we make it easy and secure.</p>
-            </div>
-
-            <div class="footer-section">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="#">Buy</a></li>
-                    <li><a href="#">Rent</a></li>
-                    <li><a href="#">Sell</a></li>
-                    <li><a href="pages/aboutus.html">About</a></li>
-                    <li><a href="pages/contactus.html">Contact</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-section">
-                <h3>Contact</h3>
-                <p><strong>Phone:</strong> +359 123 45 67 89</p>
-                <p><strong>Email:</strong> info@realestate.bg</p>
-                <div class="footer-socials">
-                    <a href="#"><img src="assets/telegram.png" alt="Telegram"></a>
-                    <a href="#"><img src="assets/viber.png" alt="Viber"></a>
-                    <a href="#"><img src="assets/whatsapp.png" alt="WhatsApp"></a>
-                </div>
-            </div>
-        </div>
-
-        <hr class="footer-divider">
-
-        <div class="footer-bottom">
-            <p>© 2025 RealEstate Bulgaria. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <script src="js/app.js"></script>
 </body>
 </html>

@@ -40,7 +40,7 @@ function displayApartmentDetails(apt) {
   // Update main image and thumbnails
   const mainImg = document.querySelector('.main-img');
   if (mainImg) {
-    mainImg.src = apt.image;
+    mainImg.src = apt.image[1];
     mainImg.alt = apt.title;
   }
   

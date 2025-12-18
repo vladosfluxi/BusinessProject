@@ -3,46 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../styles/aboutus.css">
-    <link rel="stylesheet" href="../styles/main.css">
     <title>About Us - Real Estate Bulgaria</title>
+    <link rel="stylesheet" href="../styles/header.css">
+    <link rel="stylesheet" href="../styles/footer.css">
+    <link rel="stylesheet" href="../styles/aboutus.css">
 </head>
 <body>
     <header class="mainHeader">
-        <h1>RealEstate Bulgaria</h1>
+        <h1 data-i18n="companyName">RealEstate Bulgaria</h1>
         <div class="contactInfo">
             <div class="phoneNumber">
                 <p>+359 123 45 67 89</p>
             </div>
             <hr id="headerHr">
             <div class="socialMediaToContact">
-                <a href="#" class="socMediaIcon"><img src="../assets/telegram.png" alt="telegram" class="contactIcon" id="telegramIcon"></a>
-                <a href="#" class="socMediaIcon"><img src="../assets/viber.png" alt="viber" class="contactIcon" id="viberIcon"></a>
-                <a href="#" class="socMediaIcon"><img src="../assets/whatsapp.png" alt="whatsapp" class="contactIcon" id="whatsappIcon"></a>
+                <a href="#" class="socMediaIcon"><img src="../assets/telegram.png" alt="telegram" class="contactIcon"></a>
+                <a href="#" class="socMediaIcon"><img src="../assets/viber.png" alt="viber" class="contactIcon"></a>
+                <a href="#" class="socMediaIcon"><img src="../assets/whatsapp.png" alt="whatsapp" class="contactIcon"></a>
             </div>
         </div>
     </header>
 
     <nav class="navbar">
         <ul class="nav-links">
-            <li><a href="../index.html">Home</a></li>
-            <li class="dropdown">
-                <a href="#">Buy ▼</a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">Residential</a></li>
-                    <li><a href="#">Commercial</a></li>
-                    <li><a href="#">Luxury</a></li>
-                </ul>
-            </li>
-            <li class="dropdown">
-                <a href="#">Rent ▼</a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">Houses</a></li>
-                    <li><a href="#">Apartments</a></li>
-                </ul>
-            </li>
-            <li><a href="aboutus.html">About</a></li>
-            <li><a href="contactus.html">Contact</a></li>
+            <li><a href="../index.html" data-i18n="navHome">Home</a></li>
+            <li><a href="aboutus.html" data-i18n="navAbout">About</a></li>
+            <li><a href="contactus.html" data-i18n="navContact">Contact</a></li>
         </ul>
 
         <div class="navbar-right">
@@ -51,135 +37,42 @@
                 <option value="ru">RU</option>
                 <option value="bg">BG</option>
             </select>
-
-            <a href="#" class="btn btn-apartment">Sell</a>
-            <a href="#" class="btn btn-login">Log In</a>
-            <a href="#" class="btn btn-signup">Sign Up</a>
         </div>
     </nav>
 
-    <!-- ABOUT US HERO SECTION -->
+    <!-- HERO SECTION -->
     <section class="about-hero">
-        <div class="hero-overlay">
-            <h1>About RealEstate Bulgaria</h1>
-            <p>Your trusted partner in finding the perfect property</p>
+        <h1 data-i18n="aboutTitle">About RealEstate Bulgaria</h1>
+        <p data-i18n="aboutSubtitle">Professional real estate services since 2015</p>
+    </section>
+
+    <!-- ABOUT CONTENT -->
+    <section class="about-content">
+        <div class="about-text">
+            <h2 data-i18n="whoWeAre">Who We Are</h2>
+            <p data-i18n="aboutText1">RealEstate Bulgaria is a trusted real estate agency operating throughout Bulgaria. Since our establishment in 2015, we have been dedicated to helping clients find the perfect properties that meet their needs and exceed their expectations.</p>
+            <p data-i18n="aboutText2">Our team of experienced professionals provides comprehensive services in buying, selling, and renting residential and commercial properties. We pride ourselves on our deep knowledge of the Bulgarian real estate market and our commitment to transparent, ethical business practices.</p>
+            <p data-i18n="aboutText3">Whether you're looking for your first home, planning an investment, or seeking commercial space, we offer personalized guidance and support throughout the entire process.</p>
         </div>
     </section>
 
-    <!-- OUR STORY SECTION -->
-    <section class="about-section">
-        <div class="about-container">
-            <div class="about-content">
-                <h2>Our Story</h2>
-                <p>Founded in 2015, RealEstate Bulgaria has grown to become one of the most trusted real estate platforms in the country. We started with a simple mission: to make property buying, selling, and renting accessible, transparent, and stress-free for everyone.</p>
-                <p>Over the years, we've helped thousands of families find their dream homes, assisted investors in making smart property decisions, and connected landlords with reliable tenants across Bulgaria's most beautiful cities and coastal regions.</p>
-            </div>
-            <div class="about-image">
-                <div class="placeholder-image">
-                    <span>🏢</span>
+    <!-- VALUES SECTION -->
+    <section class="values-section">
+        <div class="values-container">
+            <h2 data-i18n="ourApproach">Our Approach</h2>
+            <div class="values-grid">
+                <div class="value-item">
+                    <h3 data-i18n="professionalService">Professional Service</h3>
+                    <p data-i18n="professionalServiceText">Our licensed agents bring expertise and dedication to every transaction, ensuring the best outcomes for our clients.</p>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- OUR MISSION SECTION -->
-    <section class="mission-section">
-        <div class="mission-container">
-            <h2>Our Mission</h2>
-            <p>To revolutionize the real estate experience in Bulgaria by providing innovative solutions, expert guidance, and exceptional service that exceeds our clients' expectations.</p>
-        </div>
-    </section>
-
-    <!-- WHY CHOOSE US SECTION -->
-    <section class="why-us-section">
-        <div class="why-us-container">
-            <h2>Why Choose Us</h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">🏆</div>
-                    <h3>10+ Years Experience</h3>
-                    <p>A decade of expertise in the Bulgarian real estate market, helping clients make informed decisions.</p>
+                <div class="value-item">
+                    <h3 data-i18n="marketKnowledge">Market Knowledge</h3>
+                    <p data-i18n="marketKnowledgeText">Deep understanding of local markets, pricing trends, and investment opportunities across Bulgaria.</p>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🔍</div>
-                    <h3>Verified Listings</h3>
-                    <p>Every property is carefully verified to ensure authenticity and accurate information.</p>
+                <div class="value-item">
+                    <h3 data-i18n="clientFocus">Client Focus</h3>
+                    <p data-i18n="clientFocusText">We prioritize your needs and goals, providing honest advice and support at every step.</p>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">💼</div>
-                    <h3>Professional Service</h3>
-                    <p>Our team of licensed agents provides personalized guidance throughout your journey.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🌍</div>
-                    <h3>Local Expertise</h3>
-                    <p>Deep knowledge of neighborhoods, market trends, and investment opportunities across Bulgaria.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🤝</div>
-                    <h3>Client First</h3>
-                    <p>Your satisfaction is our priority. We're committed to building long-term relationships.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">⚡</div>
-                    <h3>Quick Response</h3>
-                    <p>Fast communication and efficient processes to help you move forward without delays.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- TEAM SECTION -->
-    <section class="team-section">
-        <div class="team-container">
-            <h2>Meet Our Team</h2>
-            <div class="team-grid">
-                <div class="team-member">
-                    <div class="member-photo">👨‍💼</div>
-                    <h3>Ivan Petrov</h3>
-                    <p class="member-role">Founder & CEO</p>
-                    <p class="member-description">15 years in real estate, specializing in luxury properties and investments.</p>
-                </div>
-                <div class="team-member">
-                    <div class="member-photo">👩‍💼</div>
-                    <h3>Maria Dimitrova</h3>
-                    <p class="member-role">Head of Sales</p>
-                    <p class="member-description">Expert in residential properties with a passion for helping families find homes.</p>
-                </div>
-                <div class="team-member">
-                    <div class="member-photo">👨‍💼</div>
-                    <h3>Georgi Ivanov</h3>
-                    <p class="member-role">Commercial Director</p>
-                    <p class="member-description">Specializes in commercial real estate and business property solutions.</p>
-                </div>
-                <div class="team-member">
-                    <div class="member-photo">👩‍💼</div>
-                    <h3>Elena Georgieva</h3>
-                    <p class="member-role">Customer Relations</p>
-                    <p class="member-description">Dedicated to ensuring every client has an exceptional experience.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- STATS SECTION -->
-    <section class="stats-section">
-        <div class="stats-container">
-            <div class="stat-item">
-                <h3>5,000+</h3>
-                <p>Properties Sold</p>
-            </div>
-            <div class="stat-item">
-                <h3>10,000+</h3>
-                <p>Happy Clients</p>
-            </div>
-            <div class="stat-item">
-                <h3>50+</h3>
-                <p>Cities Covered</p>
-            </div>
-            <div class="stat-item">
-                <h3>98%</h3>
-                <p>Satisfaction Rate</p>
             </div>
         </div>
     </section>
@@ -188,26 +81,23 @@
     <footer class="main-footer">
         <div class="footer-container">
             <div class="footer-section">
-                <h3>About</h3>
-                <p>We connect you with the best real estate offers across Bulgaria. Whether you want to buy, sell, or rent — we make it easy and secure.</p>
+                <h3 data-i18n="footerAbout">About</h3>
+                <p data-i18n="footerAboutText">We connect you with the best real estate offers across Bulgaria. Whether you want to buy, sell, or rent — we make it easy and secure.</p>
             </div>
 
             <div class="footer-section">
-                <h3>Quick Links</h3>
+                <h3 data-i18n="quickLinks">Quick Links</h3>
                 <ul>
-                    <li><a href="../index.html">Home</a></li>
-                    <li><a href="#">Buy</a></li>
-                    <li><a href="#">Rent</a></li>
-                    <li><a href="#">Sell</a></li>
-                    <li><a href="aboutus.html">About</a></li>
-                    <li><a href="contactus.html">Contact</a></li>
+                    <li><a href="../index.html" data-i18n="navHome">Home</a></li>
+                    <li><a href="aboutus.html" data-i18n="navAbout">About</a></li>
+                    <li><a href="contactus.html" data-i18n="navContact">Contact</a></li>
                 </ul>
             </div>
 
             <div class="footer-section">
-                <h3>Contact</h3>
-                <p><strong>Phone:</strong> +359 123 45 67 89</p>
-                <p><strong>Email:</strong> info@realestate.bg</p>
+                <h3 data-i18n="contact">Contact</h3>
+                <p><strong data-i18n="phone">Phone</strong>: +359 123 45 67 89</p>
+                <p><strong data-i18n="email">Email</strong>: info@realestate.bg</p>
                 <div class="footer-socials">
                     <a href="#"><img src="../assets/telegram.png" alt="Telegram"></a>
                     <a href="#"><img src="../assets/viber.png" alt="Viber"></a>
@@ -217,10 +107,11 @@
         </div>
 
         <hr class="footer-divider">
-
         <div class="footer-bottom">
-            <p>© 2025 RealEstate Bulgaria. All rights reserved.</p>
+            <p data-i18n="footerRights">© 2025 RealEstate Bulgaria. All rights reserved.</p>
         </div>
     </footer>
+
+    <script src="../js/translations.js"></script>
 </body>
 </html>
