@@ -53,6 +53,27 @@ async function filterApartments() {
     }
 }
 
+// Helper: Normalize image URL for listing page (root level)
+function resolveListingImageUrl(path) {
+    if (!path) return 'assets/apartments/apartment1.jpeg';
+
+    // Keep absolute / remote URLs as is
+    if (path.startsWith('http://') || path.startsWith('https://')) {
+        return path;
+    }
+
+    // Strip leading ../ or / so we can control from site root
+    const cleaned = path.replace(/^(\.\.\/)+/, '').replace(/^\/+/, '');
+
+    // If it already starts with assets/, just return that
+    if (cleaned.startsWith('assets/')) {
+        return cleaned;
+    }
+
+    // Otherwise assume it's a bare filename and prepend assets/
+    return `assets/${cleaned}`;
+}
+
 // Display apartments in grid
 function displayApartments(apartments) {
     const grid = document.querySelector('.apartments-grid');
@@ -63,9 +84,14 @@ function displayApartments(apartments) {
         return;
     }
 
-    grid.innerHTML = apartments.map(apt => `
+    grid.innerHTML = apartments.map(apt => {
+        // Ensure we always work with an array of image URLs
+        const images = Array.isArray(apt.image) ? apt.image : (apt.image ? [apt.image] : []);
+        const mainImage = resolveListingImageUrl(images[0]);
+
+        return `
         <div class="apartment-card">
-            <img src="${apt.image}" alt="${apt.title}" onerror="this.src='https://via.placeholder.com/200x150?text=No+Image'">
+            <img src="${mainImage}" alt="${apt.title}">
             <div class="apartment-info">
                 <h3>${apt.title}</h3>
                 <p class="location">${apt.location}, Bulgaria</p>
@@ -78,7 +104,8 @@ function displayApartments(apartments) {
                 <a href="pages/apartment-description.html?id=${apt.id}" class="btn btn-view">View Details</a>
             </div>
         </div>
-    `).join('');
+    `;
+    }).join('');
 }
 
 // Helper: Capitalize first letter

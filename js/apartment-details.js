@@ -18,13 +18,28 @@ async function loadApartmentDetails() {
   }
   
   try {
+    // 1) Load base apartment data from backend
     const response = await fetch(`${API_URL}/apartments/${apartmentId}`);
     
     if (!response.ok) {
       throw new Error('Apartment not found');
     }
     
-    const apartment = await response.json();
+    let apartment = await response.json();
+
+    // 2) Ensure we always have an array of images
+    //    We no longer fetch ../data/apartment.json because browsers block
+    //    file:// → file:// fetches. Instead, we fall back to our three local images.
+    if (!apartment.image) {
+      apartment.image = [
+        'assets/apartments/apartment1.jpeg',
+        'assets/apartments/apartment2.jpeg',
+        'assets/apartments/apartment3.jpeg'
+      ];
+    } else if (!Array.isArray(apartment.image)) {
+      apartment.image = [apartment.image];
+    }
+
     displayApartmentDetails(apartment);
   } catch (error) {
     console.error('Error loading apartment:', error);
@@ -32,24 +47,108 @@ async function loadApartmentDetails() {
   }
 }
 
+// Helper: Normalize image URL for details page (in /pages/)
+function resolveDetailsImageUrl(path) {
+  if (!path) return '../assets/apartments/apartment1.jpeg';
+
+  // Keep absolute / remote URLs as is
+  if (path.startsWith('http://') || path.startsWith('https://')) {
+    return path;
+  }
+
+  // Strip any leading ../ or / so we can prepend ../ consistently
+  const cleaned = path.replace(/^(\.\.\/)+/, '').replace(/^\/+/, '');
+
+  // If it already starts with assets/, prepend ../
+  if (cleaned.startsWith('assets/')) {
+    return `../${cleaned}`;
+  }
+
+  // Otherwise assume it's a bare filename and prepend ../assets/
+  return `../assets/${cleaned}`;
+}
+
 // Display apartment details
 function displayApartmentDetails(apt) {
+  // For now, always use the three local demo images on the details page,
+  // so that images reliably show even when backend data / file fetch is blocked.
+  const images = [
+    'assets/apartments/apartment1.jpeg',
+    'assets/apartments/apartment2.jpeg',
+    'assets/apartments/apartment3.jpeg'
+  ];
+  
+  const mainImageSrc = resolveDetailsImageUrl(images[0]);
+
   // Update page title
   document.title = `${apt.title} - Real Estate Bulgaria`;
   
   // Update main image and thumbnails
   const mainImg = document.querySelector('.main-img');
   if (mainImg) {
-    mainImg.src = apt.image[1];
+    mainImg.src = mainImageSrc;
     mainImg.alt = apt.title;
+    
+    // Add error handling for main image
+    mainImg.addEventListener('error', () => {
+      console.warn(`Failed to load main image: ${mainImageSrc}`);
+      mainImg.src = '../assets/apartments/apartment1.jpeg'; // Fallback
+    });
   }
   
-  // Update thumbnails (using same image for demo)
-  const thumbnails = document.querySelectorAll('.thumbnails img');
-  thumbnails.forEach(thumb => {
-    thumb.src = apt.image;
-    thumb.alt = apt.title;
-  });
+  // Update thumbnails dynamically based on image array
+  const thumbnailsContainer = document.querySelector('.thumbnails');
+  if (thumbnailsContainer) {
+    thumbnailsContainer.innerHTML = '';
+
+    images.forEach((imgUrl, index) => {
+      const thumb = document.createElement('img');
+      const resolvedUrl = resolveDetailsImageUrl(imgUrl);
+      thumb.src = resolvedUrl;
+      thumb.alt = `${apt.title} image ${index + 1}`;
+      thumb.className = 'thumbnail-img';
+      
+      // Highlight first thumbnail as active
+      if (index === 0) {
+        thumb.style.border = '2px solid #007bff';
+        thumb.style.opacity = '1';
+      } else {
+        thumb.style.border = '2px solid transparent';
+        thumb.style.opacity = '0.8';
+      }
+
+      // Clicking a thumbnail updates the main image
+      thumb.addEventListener('click', () => {
+        if (mainImg) {
+          mainImg.src = resolvedUrl;
+          mainImg.alt = `${apt.title} image ${index + 1}`;
+        }
+        
+        // Update active thumbnail styling
+        thumbnailsContainer.querySelectorAll('.thumbnail-img').forEach((t, i) => {
+          if (i === index) {
+            t.style.border = '2px solid #007bff';
+            t.style.opacity = '1';
+          } else {
+            t.style.border = '2px solid transparent';
+            t.style.opacity = '0.8';
+          }
+        });
+      });
+
+      // Add error handling for broken images
+      thumb.addEventListener('error', () => {
+        console.warn(`Failed to load thumbnail image: ${resolvedUrl}`);
+        thumb.style.display = 'none';
+      });
+
+      thumbnailsContainer.appendChild(thumb);
+    });
+    
+    console.log(`Created ${images.length} thumbnail(s) for apartment ${apt.id}`);
+  } else {
+    console.error('Thumbnails container not found in DOM');
+  }
   
   // Update apartment title
   const titleElement = document.querySelector('.apartment-details h2');
