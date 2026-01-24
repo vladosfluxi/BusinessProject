@@ -245,9 +245,9 @@ function showError(message) {
 let lightboxState = {
   currentIndex: 0,
   images: [],
-  zoomLevel: 1,
-  maxZoom: 3,
-  minZoom: 1
+  zoomLevel: 2, // Start at 200% (2x) by default
+  maxZoom: 4,   // Max zoom: 400% (4x)
+  minZoom: 1    // Min zoom: 100% (1x)
 };
 
 function initLightbox(images) {
@@ -337,8 +337,8 @@ function initLightbox(images) {
 function openLightbox() {
   const modal = document.getElementById('lightbox-modal');
   modal.classList.add('active');
+  lightboxState.zoomLevel = 3; // Start at 200% (2x) by default
   updateLightboxImage();
-  lightboxState.zoomLevel = 1; // Reset zoom when opening
   
   // Prevent scrolling on body when lightbox is open
   document.body.style.overflow = 'hidden';
@@ -379,13 +379,13 @@ function updateLightboxImage() {
 
 function prevImage() {
   lightboxState.currentIndex = (lightboxState.currentIndex - 1 + lightboxState.images.length) % lightboxState.images.length;
-  lightboxState.zoomLevel = 1; // Reset zoom on image change
+  lightboxState.zoomLevel = 3; // Reset zoom to 200% (2x) on image change
   updateLightboxImage();
 }
 
 function nextImage() {
   lightboxState.currentIndex = (lightboxState.currentIndex + 1) % lightboxState.images.length;
-  lightboxState.zoomLevel = 1; // Reset zoom on image change
+  lightboxState.zoomLevel = 3; // Reset zoom to 200% (2x) on image change
   updateLightboxImage();
 }
 
@@ -404,7 +404,7 @@ function zoomOut() {
 }
 
 function resetZoom() {
-  lightboxState.zoomLevel = 1;
+  lightboxState.zoomLevel = 2; // Reset to 200% (2x) default
   const lightboxImage = document.getElementById('lightbox-image');
   if (lightboxImage) {
     lightboxImage.style.transform = `scale(${lightboxState.zoomLevel})`;
