@@ -85,9 +85,9 @@ function displayApartments(apartments) {
     }
 
     grid.innerHTML = apartments.map(apt => {
-        // Ensure we always work with an array of image URLs
-        const images = Array.isArray(apt.image) ? apt.image : (apt.image ? [apt.image] : []);
-        const mainImage = resolveListingImageUrl(images[0]);
+        // Get thumbnail image from thumbnails.js mapping
+        const thumbnailImage = getThumbnailImage(apt.id);
+        const mainImage = resolveListingImageUrl(thumbnailImage);
 
         return `
         <div class="apartment-card">

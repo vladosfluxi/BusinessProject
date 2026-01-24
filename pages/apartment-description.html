@@ -108,6 +108,51 @@
       </div>
   </footer>
 
+  <!-- Lightbox Modal - Fullscreen Image Viewer -->
+  <div id="lightbox-modal" class="lightbox-modal">
+    <div class="lightbox-content">
+      <!-- Main Image Container -->
+      <div class="lightbox-image-container">
+        <img id="lightbox-image" src="" alt="Apartment Image" class="lightbox-image">
+      </div>
+
+      <!-- Top Controls Bar -->
+      <div class="lightbox-top-bar">
+        <div class="lightbox-title">
+          <h2 id="lightbox-apt-title">Apartment</h2>
+        </div>
+        <button id="lightbox-close" class="lightbox-close" title="Close (Esc)">✕</button>
+      </div>
+
+      <!-- Bottom Controls Bar -->
+      <div class="lightbox-bottom-bar">
+        <!-- Zoom Controls -->
+        <div class="lightbox-controls">
+          <button id="lightbox-zoom-out" class="lightbox-btn lightbox-btn-zoom" title="Zoom Out (-)">−</button>
+          <button id="lightbox-reset-zoom" class="lightbox-btn lightbox-btn-zoom" title="Reset Zoom">Reset</button>
+          <button id="lightbox-zoom-in" class="lightbox-btn lightbox-btn-zoom" title="Zoom In (+)">+</button>
+        </div>
+
+        <!-- Image Counter (Center) -->
+        <div class="lightbox-counter">
+          <span id="lightbox-current">1</span> / <span id="lightbox-total">3</span>
+        </div>
+
+        <!-- Help Text & Close Button -->
+        <div class="lightbox-help-section">
+          <div class="lightbox-help-text">
+            Arrow keys to navigate | Scroll to zoom
+          </div>
+          <button id="lightbox-close-bottom" class="lightbox-btn lightbox-btn-close-bottom" title="Close (ESC)">✕ Close</button>
+        </div>
+      </div>
+
+      <!-- Navigation Arrows -->
+      <button id="lightbox-prev" class="lightbox-arrow lightbox-arrow-left" title="Previous (←)">❮</button>
+      <button id="lightbox-next" class="lightbox-arrow lightbox-arrow-right" title="Next (→)">❯</button>
+    </div>
+  </div>
+
   <!-- Load Scripts -->
   <script src="../js/translations.js"></script>
   <script src="../js/apartment-details.js"></script>

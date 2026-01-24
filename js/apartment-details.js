@@ -70,13 +70,17 @@ function resolveDetailsImageUrl(path) {
 
 // Display apartment details
 function displayApartmentDetails(apt) {
-  // For now, always use the three local demo images on the details page,
-  // so that images reliably show even when backend data / file fetch is blocked.
-  const images = [
+  // Use images from apartment data, or fall back to demo images
+  let images = [
     'assets/apartments/apartment1.jpeg',
     'assets/apartments/apartment2.jpeg',
     'assets/apartments/apartment3.jpeg'
   ];
+  
+  // If apt has images, use those instead
+  if (apt.image && Array.isArray(apt.image)) {
+    images = apt.image;
+  }
   
   const mainImageSrc = resolveDetailsImageUrl(images[0]);
 
@@ -149,6 +153,11 @@ function displayApartmentDetails(apt) {
   } else {
     console.error('Thumbnails container not found in DOM');
   }
+
+  // Initialize lightbox with the images (after thumbnails are created)
+  setTimeout(() => {
+    initLightbox(images);
+  }, 100);
   
   // Update apartment title
   const titleElement = document.querySelector('.apartment-details h2');
@@ -232,5 +241,213 @@ function showError(message) {
   }
 }
 
+// ====== LIGHTBOX FUNCTIONALITY ======
+let lightboxState = {
+  currentIndex: 0,
+  images: [],
+  zoomLevel: 1,
+  maxZoom: 3,
+  minZoom: 1
+};
+
+function initLightbox(images) {
+  console.log('Initializing lightbox with images:', images);
+  lightboxState.images = images;
+  lightboxState.currentIndex = 0;
+  lightboxState.zoomLevel = 1;
+
+  const modal = document.getElementById('lightbox-modal');
+  if (!modal) {
+    console.error('Lightbox modal not found in DOM');
+    return;
+  }
+
+  const totalSpan = document.getElementById('lightbox-total');
+  if (totalSpan) {
+    totalSpan.textContent = images.length;
+  }
+
+  // Click on main image to open lightbox
+  const mainImg = document.querySelector('.main-img');
+  if (mainImg) {
+    // Remove any existing listeners first
+    const newMainImg = mainImg.cloneNode(true);
+    mainImg.parentNode.replaceChild(newMainImg, mainImg);
+    
+    const refreshedMainImg = document.querySelector('.main-img');
+    refreshedMainImg.addEventListener('click', (e) => {
+      console.log('Main image clicked');
+      lightboxState.currentIndex = 0;
+      openLightbox();
+    });
+    refreshedMainImg.style.cursor = 'pointer';
+  }
+
+  // Click on thumbnails to open lightbox
+  const thumbnails = document.querySelectorAll('.thumbnail-img');
+  thumbnails.forEach((thumb, index) => {
+    thumb.addEventListener('click', (e) => {
+      console.log('Thumbnail clicked:', index);
+      e.stopPropagation();
+      lightboxState.currentIndex = index;
+      openLightbox();
+    });
+    thumb.style.cursor = 'pointer';
+  });
+
+  // Setup modal controls - Top close button
+  const closeBtn = document.getElementById('lightbox-close');
+  if (closeBtn) {
+    closeBtn.addEventListener('click', closeLightbox);
+  }
+
+  // Setup modal controls - Bottom close button
+  const closeBottomBtn = document.getElementById('lightbox-close-bottom');
+  if (closeBottomBtn) {
+    closeBottomBtn.addEventListener('click', closeLightbox);
+  }
+
+  // Click outside image to close
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      closeLightbox();
+    }
+  });
+
+  // Arrow navigation
+  const prevBtn = document.getElementById('lightbox-prev');
+  const nextBtn = document.getElementById('lightbox-next');
+  if (prevBtn) prevBtn.addEventListener('click', prevImage);
+  if (nextBtn) nextBtn.addEventListener('click', nextImage);
+
+  // Zoom controls
+  const zoomInBtn = document.getElementById('lightbox-zoom-in');
+  const zoomOutBtn = document.getElementById('lightbox-zoom-out');
+  const resetZoomBtn = document.getElementById('lightbox-reset-zoom');
+  if (zoomInBtn) zoomInBtn.addEventListener('click', zoomIn);
+  if (zoomOutBtn) zoomOutBtn.addEventListener('click', zoomOut);
+  if (resetZoomBtn) resetZoomBtn.addEventListener('click', resetZoom);
+
+  // Keyboard support
+  document.addEventListener('keydown', handleKeyboard);
+  
+  console.log('Lightbox initialized successfully');
+}
+
+function openLightbox() {
+  const modal = document.getElementById('lightbox-modal');
+  modal.classList.add('active');
+  updateLightboxImage();
+  lightboxState.zoomLevel = 1; // Reset zoom when opening
+  
+  // Prevent scrolling on body when lightbox is open
+  document.body.style.overflow = 'hidden';
+  
+  // Add mouse wheel zoom support
+  const lightboxImage = document.getElementById('lightbox-image');
+  if (lightboxImage) {
+    lightboxImage.addEventListener('wheel', handleMouseWheel);
+  }
+}
+
+function closeLightbox() {
+  const modal = document.getElementById('lightbox-modal');
+  modal.classList.remove('active');
+  resetZoom(); // Reset zoom when closing
+  
+  // Restore scrolling on body
+  document.body.style.overflow = 'auto';
+  
+  // Remove mouse wheel listener
+  const lightboxImage = document.getElementById('lightbox-image');
+  if (lightboxImage) {
+    lightboxImage.removeEventListener('wheel', handleMouseWheel);
+  }
+}
+
+function updateLightboxImage() {
+  const lightboxImage = document.getElementById('lightbox-image');
+  const currentSpan = document.getElementById('lightbox-current');
+  const img = lightboxState.images[lightboxState.currentIndex];
+
+  const resolvedUrl = resolveDetailsImageUrl(img);
+  lightboxImage.src = resolvedUrl;
+  lightboxImage.style.transform = `scale(${lightboxState.zoomLevel})`;
+
+  currentSpan.textContent = lightboxState.currentIndex + 1;
+}
+
+function prevImage() {
+  lightboxState.currentIndex = (lightboxState.currentIndex - 1 + lightboxState.images.length) % lightboxState.images.length;
+  lightboxState.zoomLevel = 1; // Reset zoom on image change
+  updateLightboxImage();
+}
+
+function nextImage() {
+  lightboxState.currentIndex = (lightboxState.currentIndex + 1) % lightboxState.images.length;
+  lightboxState.zoomLevel = 1; // Reset zoom on image change
+  updateLightboxImage();
+}
+
+function zoomIn() {
+  if (lightboxState.zoomLevel < lightboxState.maxZoom) {
+    lightboxState.zoomLevel += 0.2;
+    updateLightboxImage();
+  }
+}
+
+function zoomOut() {
+  if (lightboxState.zoomLevel > lightboxState.minZoom) {
+    lightboxState.zoomLevel -= 0.2;
+    updateLightboxImage();
+  }
+}
+
+function resetZoom() {
+  lightboxState.zoomLevel = 1;
+  const lightboxImage = document.getElementById('lightbox-image');
+  if (lightboxImage) {
+    lightboxImage.style.transform = `scale(${lightboxState.zoomLevel})`;
+  }
+}
+
+function handleMouseWheel(e) {
+  e.preventDefault();
+  
+  // Zoom in on scroll up, zoom out on scroll down
+  if (e.deltaY < 0) {
+    zoomIn();
+  } else {
+    zoomOut();
+  }
+}
+
+function handleKeyboard(e) {
+  const modal = document.getElementById('lightbox-modal');
+  if (!modal.classList.contains('active')) return;
+
+  switch (e.key) {
+    case 'ArrowLeft':
+      prevImage();
+      break;
+    case 'ArrowRight':
+      nextImage();
+      break;
+    case 'Escape':
+      closeLightbox();
+      break;
+    case '+':
+    case '=':
+      zoomIn();
+      break;
+    case '-':
+    case '_':
+      zoomOut();
+      break;
+  }
+}
+
 // Load apartment details when page loads
-document.addEventListener('DOMContentLoaded', loadApartmentDetails);
+document.addEventListener('DOMContentLoaded', () => {
+  loadApartmentDetails();
+});
