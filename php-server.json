@@ -1,0 +1,6 @@
+{
+  "name": "php-server",
+  "script": "php",
+  "args": "-S 0.0.0.0:8000",
+  "interpreter": "none"
+}

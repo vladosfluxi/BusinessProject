@@ -1,6 +1,6 @@
 // js/apartment-details.js - Load dynamic apartment details
 
-const API_URL = 'http://localhost:3000/api';
+const API_URL = '/api';
 
 // Get apartment ID from URL
 function getApartmentIdFromURL() {
@@ -32,9 +32,9 @@ async function loadApartmentDetails() {
     //    file:// → file:// fetches. Instead, we fall back to our three local images.
     if (!apartment.image) {
       apartment.image = [
-        'assets/apartments/apartment1.jpeg',
-        'assets/apartments/apartment2.jpeg',
-        'assets/apartments/apartment3.jpeg'
+        '../assets/apartments/apartment1.jpeg',
+        '../assets/apartments/apartment2.jpeg',
+        '../assets/apartments/apartment3.jpeg'
       ];
     } else if (!Array.isArray(apartment.image)) {
       apartment.image = [apartment.image];
@@ -65,7 +65,7 @@ function resolveDetailsImageUrl(path) {
   }
 
   // Otherwise assume it's a bare filename and prepend ../assets/
-  return `../assets/${cleaned}`;
+  return `../assets/apartments/${cleaned}`;
 }
 
 // Display apartment details
@@ -74,7 +74,8 @@ function displayApartmentDetails(apt) {
   let images = [
     'assets/apartments/apartment1.jpeg',
     'assets/apartments/apartment2.jpeg',
-    'assets/apartments/apartment3.jpeg'
+    'assets/apartments/apartment3.jpeg',
+    'assets/apartments/apartment2.jpeg'
   ];
   
   // If apt has images, use those instead

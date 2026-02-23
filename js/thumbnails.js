@@ -1,3 +1,4 @@
+cat thumbnails.js
 // js/thumbnails.js - Apartment thumbnail images for listing page
 // Maps apartment IDs to their thumbnail image paths
 
