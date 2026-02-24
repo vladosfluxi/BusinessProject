@@ -1,25 +1,37 @@
 <?php
+// Sanitize input to prevent injection
+$newMessage = [
+  "fullName" => isset($_POST["fullName"]) ? htmlspecialchars($_POST["fullName"]) : "",
+  "email" => isset($_POST["email"]) ? htmlspecialchars($_POST["email"]) : "",
+  "phone" => isset($_POST["phone"]) ? htmlspecialchars($_POST["phone"]) : "",
+  "subject" => isset($_POST["subject"]) ? htmlspecialchars($_POST["subject"]) : "",
+  "message" => isset($_POST["message"]) ? htmlspecialchars($_POST["message"]) : ""
+];
 
+// Path to messages file
 $messageFile = "../data.txt";
 
-$file = fopen($messageFile, "r");
-
-if ($file) {
-	$existingData = fread($file, 100000);
-	fclose($file);
+// Read existing messages
+$messages = [];
+if (file_exists($messageFile)) {
+  $content = file_get_contents($messageFile);
+  $decoded = json_decode($content, true);
+  
+  if (is_array($decoded)) {
+    $messages = $decoded;
+  }
 }
-else $existingData = "";
 
+// Add new message
+$messages[] = $newMessage;
 
-$existingData .= "{\n\tfullName: \"". $_POST["fullName"] . "\", \n\temail: \"" . $_POST["email"] . "\", \n\tphone: \"" . $_POST["phone"] . "\", \n\tsubject: \"" . $_POST["subject"] . "\", \n\tmessage: \"" . $_POST["message"] . "\"\n},\n";
-
+// Write back as proper JSON
 $file = fopen($messageFile, "w");
-
-fwrite($file, $existingData);
-
-fclose($file);
+if ($file) {
+  fwrite($file, json_encode($messages, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+  fclose($file);
+}
 ?>
-
 <script>
 alert("Thanks for leaving your message, we will get back to you soon!");
 window.location.replace("http://64.226.84.191/index.html");

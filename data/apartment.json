@@ -13,8 +13,75 @@
         "saleType": "investor",
         "seaDistance": "100-500",
         "furnished": false,
-        "thumbnail": "\/assets\/apartments\/offer-11\/thumbnail.jpeg",
+        "thumbnail": "\/assets\/apartments\/offer-11\/thumbnail.png",
         "image": [],
-        "assetsDir": "\/assets\/apartments\/offer-11"
+        "assetsDir": "\/assets\/apartments\/offer-11",
+        "view": [],
+        "floorType": []
+    },
+    {
+        "title": "123",
+        "location": "ssdf",
+        "description": "sdfs",
+        "price": 1,
+        "area": 1,
+        "pricePerM2": 1,
+        "floor": 1,
+        "propertyType": "apartment",
+        "apartmentType": "1room",
+        "saleType": "secondary",
+        "furnished": true,
+        "thumbnail": "\/assets\/apartments\/offer-12\/thumbnail.jpeg",
+        "image": [
+            "\/assets\/apartments\/offer-12\/image-1.png"
+        ],
+        "id": 12,
+        "assetsDir": "\/assets\/apartments\/offer-12",
+        "view": [],
+        "floorType": []
+    },
+    {
+        "title": "1",
+        "location": "1",
+        "description": "x",
+        "price": 1,
+        "area": 1,
+        "pricePerM2": 1,
+        "floor": 1,
+        "propertyType": "apartment",
+        "apartmentType": "1room",
+        "saleType": "secondary",
+        "furnished": false,
+        "view": [
+            "mountain"
+        ],
+        "floorType": [
+            "top"
+        ],
+        "thumbnail": "\/assets\/apartments\/offer-13\/thumbnail.png",
+        "image": [
+            "\/assets\/apartments\/offer-13\/image-1.png"
+        ],
+        "id": 13,
+        "assetsDir": "\/assets\/apartments\/offer-13"
+    },
+    {
+        "title": "1",
+        "location": "22",
+        "description": "222",
+        "price": 1,
+        "area": 1,
+        "pricePerM2": 1,
+        "floor": 1,
+        "propertyType": "apartment",
+        "apartmentType": "1room",
+        "saleType": "secondary",
+        "furnished": false,
+        "thumbnail": "\/assets\/apartments\/offer-14\/thumbnail.jpeg",
+        "image": [
+            "\/assets\/apartments\/offer-14\/image-1.png"
+        ],
+        "id": 14,
+        "assetsDir": "\/assets\/apartments\/offer-14"
     }
 ]

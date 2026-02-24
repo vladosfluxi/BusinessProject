@@ -17,11 +17,18 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
 
 header("Content-Type: application/json; charset=utf-8");
 
-$jsonPath = __DIR__ . "/../../data/apartments.json";
-$assetsDir = __DIR__ . "/../assets/apartments";
+$jsonPath = __DIR__ . "/../../data/apartment.json";
+$assetsDir = __DIR__ . "/../../assets/apartments";
 
+// Ensure data directory exists
+$dataDir = __DIR__ . "/../../data";
+if (!file_exists($dataDir)) {
+  @mkdir($dataDir, 0755, true);
+}
+
+// Ensure assets directory exists
 if (!file_exists($assetsDir)) {
-  mkdir($assetsDir, 0755, true);
+  @mkdir($assetsDir, 0755, true);
 }
 
 // Get data from request
@@ -60,7 +67,7 @@ $newId = $maxId + 1;
 // Create apartment folder
 $apartmentDir = $assetsDir . "/offer-" . $newId;
 if (!file_exists($apartmentDir)) {
-  mkdir($apartmentDir, 0755, true);
+  @mkdir($apartmentDir, 0755, true);
 }
 
 // Handle thumbnail upload
@@ -116,9 +123,25 @@ if (!isset($data['image'])) {
 // Add to apartments array
 $apartments[] = $data;
 
-// Save to JSON
+// Save to JSON atomically
 $tmp = $jsonPath . ".tmp";
-file_put_contents($tmp, json_encode($apartments, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
-rename($tmp, $jsonPath);
+$jsonContent = json_encode($apartments, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+
+if (file_put_contents($tmp, $jsonContent) === false) {
+  http_response_code(500);
+  echo json_encode(["error" => "Failed to write apartment data"]);
+  exit();
+}
+
+if (!rename($tmp, $jsonPath)) {
+  // Try copy as fallback
+  if (!copy($tmp, $jsonPath)) {
+    http_response_code(500);
+    @unlink($tmp);
+    echo json_encode(["error" => "Failed to save apartment"]);
+    exit();
+  }
+  @unlink($tmp);
+}
 
 echo json_encode($data, JSON_UNESCAPED_UNICODE);

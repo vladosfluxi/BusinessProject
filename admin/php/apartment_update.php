@@ -17,8 +17,8 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
 
 header("Content-Type: application/json; charset=utf-8");
 
-$jsonPath = __DIR__ . "/../../data/apartments.json";
-$assetsDir = __DIR__ . "/../assets/apartments";
+$jsonPath = __DIR__ . "/../../data/apartment.json";
+$assetsDir = __DIR__ . "/../../assets/apartments";
 
 // Get data from request
 $id = null;

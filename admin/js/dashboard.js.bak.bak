@@ -33,7 +33,7 @@ function resolveAdminImageUrl(p) {
 /* ---------- Loaders ---------- */
 
 async function loadApartments() {
-  const response = await fetch("../php/apartments.php", {
+  const response = await fetch("/admin/php/apartments.php", {
     credentials: "include",
     cache: "no-store",
   });
@@ -48,7 +48,7 @@ async function loadApartments() {
 }
 
 async function loadMessages() {
-  const response = await fetch("../php/messages.php", {
+  const response = await fetch("/admin/php/messages.php", {
     credentials: "include",
     cache: "no-store",
   });
@@ -92,15 +92,15 @@ async function createApartment(data, opts) {
       console.log("  ✓ Appended thumbnail");
     }
 
-    console.log("🚀 Sending to ../php/apartment_create.php");
-    res = await fetch("../php/apartment_create.php", {
+    console.log("🚀 Sending to /admin/php/apartment_create.php");
+    res = await fetch("/admin/php/apartment_create.php", {
       method: "POST",
       credentials: "include",
       body: fd,
     });
   } else {
-    console.log("🚀 Sending JSON to ../php/apartment_create.php");
-    res = await fetch("../php/apartment_create.php", {
+    console.log("🚀 Sending JSON to /admin/php/apartment_create.php");
+    res = await fetch("/admin/php/apartment_create.php", {
       method: "POST",
       credentials: "include",
       headers: { "content-type": "application/json" },
@@ -155,13 +155,13 @@ async function updateApartment(id, data, opts) {
       fd.append("deleteImages", JSON.stringify(deleteImages));
     }
 
-    res = await fetch("../php/apartment_update.php", {
+    res = await fetch("/admin/php/apartment_update.php", {
       method: "POST",
       credentials: "include",
       body: fd,
     });
   } else {
-    res = await fetch("../php/apartment_update.php", {
+    res = await fetch("/admin/php/apartment_update.php", {
       method: "POST",
       credentials: "include",
       headers: { "content-type": "application/json" },
@@ -183,7 +183,7 @@ async function updateApartment(id, data, opts) {
 }
 
 async function deleteApartment(id) {
-  const res = await fetch("../php/apartment_delete.php", {
+  const res = await fetch("/admin/php/apartment_delete.php", {
     method: "POST",
     credentials: "include",
     headers: { "content-type": "application/json" },
@@ -554,13 +554,13 @@ function openCreateModal(onCreated) {
     e.preventDefault();
 
     const data = {};
-
+    
     for (const entry of inputs.entries()) {
       const key = entry[0];
       const obj = entry[1];
       const input = obj.input;
       const type = obj.type;
-
+      
       if (type === "checkbox") {
         data[key] = input.checked;
       } else if (type === "number") {

@@ -25,10 +25,12 @@ if (
     $storedHash !== '' &&
     hash_equals($storedHash, $hash)
 ) {
-    $_SESSION['admin'] = true;
+    $_SESSION['logged_in'] = true;
     header("Location: dashboard.php");
+    exit;
 }
 
 // If login fails
 header("Location: ../pages/login.html");
 exit;
+?>
