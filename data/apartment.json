@@ -14,7 +14,10 @@
         "seaDistance": "100-500",
         "furnished": false,
         "thumbnail": "\/assets\/apartments\/offer-11\/thumbnail.png",
-        "image": [],
+        "image": [
+            "\/assets\/apartments\/offer-11\/image-1772110766-1.jfif",
+            "\/assets\/apartments\/offer-11\/image-1772131647-2.png"
+        ],
         "assetsDir": "\/assets\/apartments\/offer-11",
         "view": [],
         "floorType": []
@@ -33,7 +36,9 @@
         "furnished": true,
         "thumbnail": "\/assets\/apartments\/offer-12\/thumbnail.jpeg",
         "image": [
-            "\/assets\/apartments\/offer-12\/image-1.png"
+            "\/assets\/apartments\/offer-12\/image-1.jpg",
+            "\/assets\/apartments\/offer-12\/image-1772110743-2.jfif",
+            "\/assets\/apartments\/offer-12\/image-1772110743-3.jfif"
         ],
         "id": 12,
         "assetsDir": "\/assets\/apartments\/offer-12",
@@ -66,22 +71,24 @@
         "assetsDir": "\/assets\/apartments\/offer-13"
     },
     {
-        "title": "1",
-        "location": "22",
-        "description": "222",
-        "price": 1,
-        "area": 1,
-        "pricePerM2": 1,
-        "floor": 1,
+        "title": "Title",
+        "location": "Location",
+        "description": "Desciption",
+        "price": 1010,
+        "area": 1100,
+        "pricePerM2": 1010,
+        "floor": 2,
         "propertyType": "apartment",
         "apartmentType": "1room",
         "saleType": "secondary",
         "furnished": false,
-        "thumbnail": "\/assets\/apartments\/offer-14\/thumbnail.jpeg",
-        "image": [
-            "\/assets\/apartments\/offer-14\/image-1.png"
-        ],
+        "thumbnail": "\/assets\/apartments\/offer-14\/thumbnail.png",
         "id": 14,
-        "assetsDir": "\/assets\/apartments\/offer-14"
+        "assetsDir": "\/assets\/apartments\/offer-14",
+        "image": [
+            "\/assets\/apartments\/offer-14\/image-1772131850-1.png"
+        ],
+        "view": [],
+        "floorType": []
     }
 ]

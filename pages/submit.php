@@ -9,7 +9,7 @@ $newMessage = [
 ];
 
 // Path to messages file
-$messageFile = "../data.txt";
+$messageFile = "../data.json";
 
 // Read existing messages
 $messages = [];
