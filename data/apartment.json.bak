@@ -1,222 +1,94 @@
 [
-  {
-    "id": 1,
-    "title": "Offer 100000",
-    "location": "Sofia",
-    "price": 120000,
-    "area": 85,
-    "pricePerM2": 1412,
-    "floor": 5,
-    "propertyType": "apartment",
-    "apartmentType": "2room",
-    "saleType": "secondary",
-    "seaDistance": null,
-    "furnished": true,
-    "view": ["city"],
-    "floorType": ["no-ground", "no-top"],
-    "description": "Beautiful modern apartment in the heart of Sofia with city views and all amenities nearby",
-    "image": [
-      "/assets/apartments/apartment1.jpeg",
-      "/assets/apartments/apartment2.jpeg",
-      "/assets/apartments/apartment3.jpeg"
-    ]
-  },
-  {
-    "id": 2,
-    "title": "Offer 100001",
-    "location": "Varna",
-    "price": 145000,
-    "area": 95,
-    "pricePerM2": 1526,
-    "floor": 3,
-    "propertyType": "apartment",
-    "apartmentType": "2room",
-    "saleType": "investor",
-    "seaDistance": "100-500",
-    "furnished": true,
-    "view": ["sea"],
-    "floorType": ["no-ground", "no-top"],
-    "description": "Stunning sea view apartment with spacious balcony, perfect for summer living",
-    "image": [
-      "/assets/apartments/apartment1.jpeg",
-      "/assets/apartments/apartment2.jpeg",
-      "/assets/apartments/apartment3.jpeg"
-    ]
-  },
-  {
-    "id": 3,
-    "title": "Offer 100002",
-    "location": "Plovdiv",
-    "price": 105000,
-    "area": 110,
-    "pricePerM2": 955,
-    "floor": 2,
-    "propertyType": "apartment",
-    "apartmentType": "3room",
-    "saleType": "secondary",
-    "seaDistance": null,
-    "furnished": false,
-    "view": ["mountain"],
-    "floorType": ["no-ground", "no-top"],
-    "description": "Perfect family apartment with mountain views and quiet neighborhood",
-    "image": [
-      "/assets/apartments/apartment1.jpeg",
-      "/assets/apartments/apartment2.jpeg",
-      "/assets/apartments/apartment3.jpeg"
-    ]
-  },
-  {
-    "id": 4,
-    "title": "Offer 100003",
-    "location": "Sofia",
-    "price": 285000,
-    "area": 150,
-    "pricePerM2": 1900,
-    "floor": 8,
-    "propertyType": "apartment",
-    "apartmentType": "4room",
-    "saleType": "investor",
-    "seaDistance": null,
-    "furnished": true,
-    "view": ["city", "mountain"],
-    "floorType": ["top"],
-    "description": "Exclusive penthouse with panoramic views of Sofia and premium finishes",
-    "image": [
-      "/assets/apartments/apartment1.jpeg",
-      "/assets/apartments/apartment2.jpeg",
-      "/assets/apartments/apartment3.jpeg"
-    ]
-  },
-  {
-    "id": 5,
-    "title": "100004",
-    "location": "Burgas",
-    "price": 68000,
-    "area": 42,
-    "pricePerM2": 1619,
-    "floor": 1,
-    "propertyType": "apartment",
-    "apartmentType": "1room",
-    "saleType": "secondary",
-    "seaDistance": "0-100",
-    "furnished": true,
-    "view": ["sea", "pool"],
-    "floorType": ["ground"],
-    "description": "Perfect investment property near the beach with pool access",
-    "image": [
-      "/assets/apartments/apartment1.jpeg",
-      "/assets/apartments/apartment2.jpeg",
-      "/assets/apartments/apartment3.jpeg"
-    ]
-  },
-  {
-    "id": 6,
-    "title": "Offer 100005",
-    "location": "Varna",
-    "price": 320000,
-    "area": 220,
-    "pricePerM2": 1455,
-    "floor": null,
-    "propertyType": "house",
-    "apartmentType": "multiroom",
-    "saleType": "investor",
-    "seaDistance": "500-1000",
-    "furnished": false,
-    "view": ["sea", "forest"],
-    "floorType": [],
-    "description": "Spacious family house with private garden and sea glimpses",
-    "image": [
-      "/assets/apartments/apartment1.jpeg",
-      "/assets/apartments/apartment2.jpeg",
-      "/assets/apartments/apartment3.jpeg"
-    ]
-  },
-  {
-    "id": 7,
-    "title": "Offer 100006",
-    "location": "Sofia",
-    "price": 135000,
-    "area": 78,
-    "pricePerM2": 1731,
-    "floor": 4,
-    "propertyType": "apartment",
-    "apartmentType": "2room",
-    "saleType": "investor",
-    "seaDistance": null,
-    "furnished": true,
-    "view": ["city"],
-    "floorType": ["no-ground", "no-top"],
-    "description": "Modern loft-style apartment in the city center with high ceilings",
-    "image": [
-      "/assets/apartments/apartment1.jpeg",
-      "/assets/apartments/apartment2.jpeg",
-      "/assets/apartments/apartment3.jpeg"
-    ]
-  },
-  {
-    "id": 8,
-    "title": "Offer 100007",
-    "location": "Burgas",
-    "price": 195000,
-    "area": 125,
-    "pricePerM2": 1560,
-    "floor": null,
-    "propertyType": "house",
-    "apartmentType": "3room",
-    "saleType": "secondary",
-    "seaDistance": "0-100",
-    "furnished": true,
-    "view": ["sea", "lake"],
-    "floorType": [],
-    "description": "Beautiful villa right on the beach with private access to the sea",
-    "image": [
-      "/assets/apartments/apartment1.jpeg",
-      "/assets/apartments/apartment2.jpeg",
-      "/assets/apartments/apartment3.jpeg"
-    ]
-  },
-  {
-    "id": 9,
-    "title": "Offer 100008",
-    "location": "Plovdiv",
-    "price": 98000,
-    "area": 102,
-    "pricePerM2": 961,
-    "floor": 6,
-    "propertyType": "apartment",
-    "apartmentType": "3room",
-    "saleType": "secondary",
-    "seaDistance": null,
-    "furnished": false,
-    "view": ["city", "mountain"],
-    "floorType": ["no-ground", "no-top"],
-    "description": "Bright and airy apartment with dual city and mountain views",
-    "image": [
-      "/assets/apartments/apartment1.jpeg",
-      "/assets/apartments/apartment2.jpeg",
-      "/assets/apartments/apartment3.jpeg"
-    ]
-  },
-  {
-    "id": 10,
-    "title": "Offer 100009",
-    "location": "Varna",
-    "price": 275000,
-    "area": 140,
-    "pricePerM2": 1964,
-    "floor": 7,
-    "propertyType": "apartment",
-    "apartmentType": "4room",
-    "saleType": "investor",
-    "seaDistance": "100-500",
-    "furnished": true,
-    "view": ["sea", "city"],
-    "floorType": ["top"],
-    "description": "Stunning top floor penthouse with wraparound terrace and sea views",
-    "image": [
-      "/assets/apartments/apartment1.jpeg",
-      "/assets/apartments/apartment2.jpeg",
-      "/assets/apartments/apartment3.jpeg"
-    ]
-  }
+    {
+        "id": 11,
+        "title": "Offer-11",
+        "location": "100",
+        "description": "ksdakkfajls",
+        "price": 100,
+        "area": 100,
+        "pricePerM2": 100,
+        "floor": 100,
+        "propertyType": "house",
+        "apartmentType": "3room",
+        "saleType": "investor",
+        "seaDistance": "100-500",
+        "furnished": false,
+        "thumbnail": "\/assets\/apartments\/offer-11\/thumbnail.png",
+        "image": [
+            "\/assets\/apartments\/offer-11\/image-1772110766-1.jfif",
+            "\/assets\/apartments\/offer-11\/image-1772131647-2.png"
+        ],
+        "assetsDir": "\/assets\/apartments\/offer-11",
+        "view": [],
+        "floorType": []
+    },
+    {
+        "title": "123",
+        "location": "ssdf",
+        "description": "sdfs",
+        "price": 1,
+        "area": 1,
+        "pricePerM2": 1,
+        "floor": 1,
+        "propertyType": "apartment",
+        "apartmentType": "1room",
+        "saleType": "secondary",
+        "furnished": true,
+        "thumbnail": "\/assets\/apartments\/offer-12\/thumbnail.jpeg",
+        "image": [
+            "\/assets\/apartments\/offer-12\/image-1.jpg",
+            "\/assets\/apartments\/offer-12\/image-1772110743-2.jfif",
+            "\/assets\/apartments\/offer-12\/image-1772110743-3.jfif"
+        ],
+        "id": 12,
+        "assetsDir": "\/assets\/apartments\/offer-12",
+        "view": [],
+        "floorType": []
+    },
+    {
+        "title": "1",
+        "location": "1",
+        "description": "x",
+        "price": 1,
+        "area": 1,
+        "pricePerM2": 1,
+        "floor": 1,
+        "propertyType": "apartment",
+        "apartmentType": "1room",
+        "saleType": "secondary",
+        "furnished": false,
+        "view": [
+            "mountain"
+        ],
+        "floorType": [
+            "top"
+        ],
+        "thumbnail": "\/assets\/apartments\/offer-13\/thumbnail.png",
+        "image": [
+            "\/assets\/apartments\/offer-13\/image-1.png"
+        ],
+        "id": 13,
+        "assetsDir": "\/assets\/apartments\/offer-13"
+    },
+    {
+        "title": "Title",
+        "location": "Location",
+        "description": "Desciption",
+        "price": 1010,
+        "area": 1100,
+        "pricePerM2": 1010,
+        "floor": 2,
+        "propertyType": "apartment",
+        "apartmentType": "1room",
+        "saleType": "secondary",
+        "furnished": false,
+        "thumbnail": "\/assets\/apartments\/offer-14\/thumbnail.png",
+        "id": 14,
+        "assetsDir": "\/assets\/apartments\/offer-14",
+        "image": [
+            "\/assets\/apartments\/offer-14\/image-1772131850-1.png"
+        ],
+        "view": [],
+        "floorType": []
+    }
 ]

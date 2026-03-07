@@ -1,4 +1,4 @@
-// /admin/js/dashboard.js - FIXED VERSION
+// /admin/js/dashboard.js
 
 /* ---------- Helpers ---------- */
 
@@ -72,34 +72,20 @@ async function createApartment(data, opts) {
   const hasThumb = !!thumbnailFile;
   const useMultipart = hasGallery || hasThumb;
 
-  console.log("\n🔵 createApartment called");
-  console.log("  hasThumb:", hasThumb);
-  console.log("  hasGallery:", hasGallery);
-
   let res;
 
   if (useMultipart) {
     const fd = new FormData();
     fd.append("data", JSON.stringify(data));
+    if (hasGallery) galleryFiles.forEach((f) => fd.append("images[]", f));
+    if (hasThumb) fd.append("thumbnail", thumbnailFile);
 
-    if (hasGallery) {
-      galleryFiles.forEach((f) => fd.append("images[]", f));
-      console.log("  ✓ Appended", galleryFiles.length, "gallery images");
-    }
-
-    if (hasThumb) {
-      fd.append("thumbnail", thumbnailFile);
-      console.log("  ✓ Appended thumbnail");
-    }
-
-    console.log("🚀 Sending to ../php/apartment_create.php");
     res = await fetch("../php/apartment_create.php", {
       method: "POST",
       credentials: "include",
       body: fd,
     });
   } else {
-    console.log("🚀 Sending JSON to ../php/apartment_create.php");
     res = await fetch("../php/apartment_create.php", {
       method: "POST",
       credentials: "include",
@@ -109,16 +95,8 @@ async function createApartment(data, opts) {
   }
 
   const text = await res.text();
-  console.log("📨 Response status:", res.status);
-
-  if (!res.ok) {
-    console.error("❌ Create failed:", res.status, text);
-    throw new Error(`Create failed: ${res.status} ${text.slice(0, 200)}`);
-  }
-
-  const result = text.trim() ? JSON.parse(text) : null;
-  console.log("✅ Create successful");
-  return result;
+  if (!res.ok) throw new Error(`Create failed: ${res.status} ${text.slice(0, 200)}`);
+  return text.trim() ? JSON.parse(text) : null;
 }
 
 async function updateApartment(id, data, opts) {
@@ -130,11 +108,7 @@ async function updateApartment(id, data, opts) {
   const hasGallery = Array.isArray(galleryFiles) && galleryFiles.length > 0;
   const hasThumb = !!thumbnailFile;
   const hasDeletes = Array.isArray(deleteImages) && deleteImages.length > 0;
-
   const useMultipart = hasGallery || hasThumb || hasDeletes;
-
-  console.log("\n🔵 updateApartment called");
-  console.log("  id:", id);
 
   let res;
 
@@ -142,18 +116,9 @@ async function updateApartment(id, data, opts) {
     const fd = new FormData();
     fd.append("id", String(id));
     fd.append("data", JSON.stringify(data));
-
-    if (hasGallery) {
-      galleryFiles.forEach((f) => fd.append("images[]", f));
-    }
-
-    if (hasThumb) {
-      fd.append("thumbnail", thumbnailFile);
-    }
-
-    if (hasDeletes) {
-      fd.append("deleteImages", JSON.stringify(deleteImages));
-    }
+    if (hasGallery) galleryFiles.forEach((f) => fd.append("images[]", f));
+    if (hasThumb) fd.append("thumbnail", thumbnailFile);
+    if (hasDeletes) fd.append("deleteImages", JSON.stringify(deleteImages));
 
     res = await fetch("../php/apartment_update.php", {
       method: "POST",
@@ -170,16 +135,8 @@ async function updateApartment(id, data, opts) {
   }
 
   const text = await res.text();
-  console.log("📨 Response status:", res.status);
-
-  if (!res.ok) {
-    console.error("❌ Update failed:", res.status, text);
-    throw new Error(`Update failed: ${res.status} ${text.slice(0, 200)}`);
-  }
-
-  const result = text.trim() ? JSON.parse(text) : null;
-  console.log("✅ Update successful");
-  return result;
+  if (!res.ok) throw new Error(`Update failed: ${res.status} ${text.slice(0, 200)}`);
+  return text.trim() ? JSON.parse(text) : null;
 }
 
 async function deleteApartment(id) {
@@ -195,12 +152,132 @@ async function deleteApartment(id) {
   return text.trim() ? JSON.parse(text) : { ok: true };
 }
 
+/* ---------- Translation Block Builder ---------- */
+
+const LANGS = [
+  { code: "en", label: "English" },
+  { code: "bg", label: "Bulgarian" },
+  { code: "ru", label: "Russian" },
+];
+
+/**
+ * Builds a tabbed translation editor for title, location, and description.
+ * @param {object|null} offer  – existing offer (null for create)
+ * @returns {{ node: HTMLElement, getValues: function }}
+ */
+function makeTranslationEditor(offer) {
+  const wrap = el("div", "translation-editor");
+
+  // Tab bar
+  const tabBar = el("div", "trans-tab-bar");
+  const panels = new Map();
+  const inputs = {};
+
+  LANGS.forEach(({ code, label }, i) => {
+    // Tab button
+    const tab = el("button", "trans-tab" + (i === 0 ? " trans-tab-active" : ""), label);
+    tab.type = "button";
+    tab.dataset.lang = code;
+    tabBar.appendChild(tab);
+
+    // Panel
+    const panel = el("div", "trans-panel");
+    if (i !== 0) panel.style.display = "none";
+    panel.dataset.lang = code;
+
+    inputs[code] = {};
+
+    // Title
+    const titleLabel = el("label", "", `Title (${label})`);
+    titleLabel.htmlFor = `trans_title_${code}`;
+    const titleInput = document.createElement("input");
+    titleInput.type = "text";
+    titleInput.id = `trans_title_${code}`;
+    titleInput.placeholder = `Title in ${label}`;
+    titleInput.value = offer?.titleTranslations?.[code] ?? (code === "en" ? (offer?.title ?? "") : "");
+    panel.appendChild(titleLabel);
+    panel.appendChild(titleInput);
+    inputs[code].title = titleInput;
+
+    // Location
+    const locLabel = el("label", "", `Location (${label})`);
+    locLabel.htmlFor = `trans_location_${code}`;
+    const locInput = document.createElement("input");
+    locInput.type = "text";
+    locInput.id = `trans_location_${code}`;
+    locInput.placeholder = `Location in ${label}`;
+    locInput.value = offer?.locationTranslations?.[code] ?? (code === "en" ? (offer?.location ?? "") : "");
+    panel.appendChild(locLabel);
+    panel.appendChild(locInput);
+    inputs[code].location = locInput;
+
+    // Description
+    const descLabel = el("label", "", `Description (${label})`);
+    descLabel.htmlFor = `trans_desc_${code}`;
+    const descInput = document.createElement("textarea");
+    descInput.id = `trans_desc_${code}`;
+    descInput.rows = 4;
+    descInput.placeholder = `Description in ${label}`;
+    descInput.value = offer?.descriptionTranslations?.[code] ?? (code === "en" ? (offer?.description ?? "") : "");
+    panel.appendChild(descLabel);
+    panel.appendChild(descInput);
+    inputs[code].description = descInput;
+
+    panels.set(code, panel);
+    wrap.appendChild(panel);
+  });
+
+  wrap.insertBefore(tabBar, wrap.firstChild);
+
+  // Tab switching
+  tabBar.addEventListener("click", (e) => {
+    const btn = e.target.closest(".trans-tab");
+    if (!btn) return;
+    const lang = btn.dataset.lang;
+
+    tabBar.querySelectorAll(".trans-tab").forEach((t) => t.classList.remove("trans-tab-active"));
+    btn.classList.add("trans-tab-active");
+
+    panels.forEach((panel, code) => {
+      panel.style.display = code === lang ? "" : "none";
+    });
+  });
+
+  return {
+    node: wrap,
+    /**
+     * Returns { title, location, description, titleTranslations, locationTranslations, descriptionTranslations }
+     * The root title/location/description are always taken from the English tab (primary language).
+     */
+    getValues() {
+      const titleTranslations = {};
+      const locationTranslations = {};
+      const descriptionTranslations = {};
+
+      LANGS.forEach(({ code }) => {
+        titleTranslations[code] = inputs[code].title.value.trim();
+        locationTranslations[code] = inputs[code].location.value.trim();
+        descriptionTranslations[code] = inputs[code].description.value.trim();
+      });
+
+      return {
+        title: titleTranslations.en || "",
+        location: locationTranslations.en || "",
+        description: descriptionTranslations.en || "",
+        titleTranslations,
+        locationTranslations,
+        descriptionTranslations,
+      };
+    },
+  };
+}
+
 /* ---------- Image Editors ---------- */
 
 function makeThumbnailEditor(offer) {
   const wrap = el("div", "thumb-editor");
   wrap.appendChild(el("div", "image-editor-title", "Thumbnail image"));
-  wrap.appendChild(el("div", "image-editor-sub", offer ? "Used in listing cards." : "Used in listing cards."));
+  wrap.appendChild(el("div", "image-editor-sub", "Used in listing cards."));
 
   const img = document.createElement("img");
   img.className = "thumb-preview";
@@ -222,7 +299,6 @@ function makeThumbnailEditor(offer) {
 
   file.addEventListener("change", () => {
     selected = (file.files && file.files[0]) || null;
-
     if (blobUrl) URL.revokeObjectURL(blobUrl);
     blobUrl = null;
 
@@ -251,10 +327,8 @@ function makeThumbnailEditor(offer) {
 
   return {
     node: wrap,
-    getFile: function() { return selected; },
-    cleanup: function() {
-      if (blobUrl) URL.revokeObjectURL(blobUrl);
-    },
+    getFile() { return selected; },
+    cleanup() { if (blobUrl) URL.revokeObjectURL(blobUrl); },
   };
 }
 
@@ -271,12 +345,10 @@ function makeGalleryEditor(offer) {
 
   function renderExisting() {
     preview.innerHTML = "";
-
     if (!current.length) {
       preview.appendChild(el("div", "preview-empty", "No images"));
       return;
     }
-
     current.forEach((src) => {
       const item = el("div", "preview-item");
       if (deleteSet.has(src)) item.classList.add("marked-delete");
@@ -291,16 +363,11 @@ function makeGalleryEditor(offer) {
       const btn = el("button", "small-btn small-btn-danger", deleteSet.has(src) ? "Undo" : "Delete");
       btn.type = "button";
       btn.addEventListener("click", () => {
-        if (deleteSet.has(src)) {
-          deleteSet.delete(src);
-        } else {
-          deleteSet.add(src);
-        }
+        deleteSet.has(src) ? deleteSet.delete(src) : deleteSet.add(src);
         renderExisting();
         renderHint();
       });
       overlay.appendChild(btn);
-
       item.appendChild(img);
       item.appendChild(overlay);
       preview.appendChild(item);
@@ -331,16 +398,13 @@ function makeGalleryEditor(offer) {
       uploadPreview.appendChild(el("div", "preview-empty", "No uploads selected"));
       return;
     }
-
     uploadFiles.forEach((f) => {
       const item = el("div", "preview-item");
       const img = document.createElement("img");
       img.className = "preview-thumb";
-
       const blob = URL.createObjectURL(f);
       uploadBlobUrls.push(blob);
       img.src = blob;
-
       item.appendChild(img);
       uploadPreview.appendChild(item);
     });
@@ -356,7 +420,6 @@ function makeGalleryEditor(offer) {
   file.addEventListener("change", () => {
     uploadBlobUrls.forEach((u) => URL.revokeObjectURL(u));
     uploadBlobUrls = [];
-
     uploadFiles = Array.from(file.files || []);
     renderUploadPreview();
     renderHint();
@@ -374,7 +437,6 @@ function makeGalleryEditor(offer) {
     renderUploadPreview();
     renderHint();
   });
-
   row.appendChild(clearUploads);
 
   if (offer) {
@@ -390,19 +452,15 @@ function makeGalleryEditor(offer) {
 
   wrap.appendChild(row);
 
-  if (offer) {
-    renderExisting();
-  }
+  if (offer) renderExisting();
   renderUploadPreview();
   renderHint();
 
   return {
     node: wrap,
-    getDeleteImages: function() { return Array.from(deleteSet); },
-    getUploadFiles: function() { return uploadFiles; },
-    cleanup: function() {
-      uploadBlobUrls.forEach((u) => URL.revokeObjectURL(u));
-    },
+    getDeleteImages() { return Array.from(deleteSet); },
+    getUploadFiles() { return uploadFiles; },
+    cleanup() { uploadBlobUrls.forEach((u) => URL.revokeObjectURL(u)); },
   };
 }
 
@@ -424,10 +482,8 @@ function openCreateModal(onCreated) {
   const form = document.createElement("form");
   const grid = el("div", "form-grid");
 
+  // Non-translatable fields
   const fields = [
-    { key: "title", label: "Title", type: "text", required: true },
-    { key: "location", label: "Location", type: "text", required: true },
-    { key: "description", label: "Description", type: "textarea", required: false },
     { key: "price", label: "Price (€)", type: "number", required: true },
     { key: "area", label: "Area (m²)", type: "number", required: true },
     { key: "pricePerM2", label: "Price per m² (€)", type: "number", required: true },
@@ -447,11 +503,7 @@ function openCreateModal(onCreated) {
     label.textContent = field.label + (field.required ? " *" : "");
 
     let input;
-
-    if (field.type === "textarea") {
-      input = document.createElement("textarea");
-      input.rows = 3;
-    } else if (field.type === "checkbox") {
+    if (field.type === "checkbox") {
       input = document.createElement("input");
       input.type = "checkbox";
     } else if (field.type === "select") {
@@ -471,14 +523,19 @@ function openCreateModal(onCreated) {
     input.name = field.key;
     if (field.required && field.type !== "checkbox") input.required = true;
 
-    inputs.set(field.key, { input: input, type: field.type });
+    inputs.set(field.key, { input, type: field.type });
     grid.appendChild(label);
     grid.appendChild(input);
   });
 
   form.appendChild(grid);
 
-  // View type multi-select
+  // --- Translations block ---
+  form.appendChild(el("div", "section-label", "Title, Location & Description"));
+  const transEditor = makeTranslationEditor(null);
+  form.appendChild(transEditor.node);
+
+  // View multi-select
   form.appendChild(el("div", "section-label", "View"));
   const viewOptions = ["sea", "mountain", "city", "lake", "pool", "forest"];
   const viewCheckboxes = new Map();
@@ -487,7 +544,6 @@ function openCreateModal(onCreated) {
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.id = "view_" + opt;
-    checkbox.name = "view";
     checkbox.value = opt;
     const label = document.createElement("label");
     label.htmlFor = "view_" + opt;
@@ -500,20 +556,13 @@ function openCreateModal(onCreated) {
 
   // Floor type multi-select
   form.appendChild(el("div", "section-label", "Floor Type"));
-  const floorOptions = ["ground", "top", "no-ground", "no-top"];
-  const floorLabels = {
-    "ground": "Ground Floor",
-    "top": "Top Floor",
-    "no-ground": "Without Ground",
-    "no-top": "Without Top",
-  };
+  const floorLabels = { ground: "Ground Floor", top: "Top Floor", "no-ground": "Without Ground", "no-top": "Without Top" };
   const floorCheckboxes = new Map();
-  floorOptions.forEach((opt) => {
+  Object.keys(floorLabels).forEach((opt) => {
     const container = el("div", "checkbox-inline");
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.id = "floor_" + opt;
-    checkbox.name = "floorType";
     checkbox.value = opt;
     const label = document.createElement("label");
     label.htmlFor = "floor_" + opt;
@@ -524,12 +573,12 @@ function openCreateModal(onCreated) {
     floorCheckboxes.set(opt, checkbox);
   });
 
-  // Thumbnail block
+  // Thumbnail
   form.appendChild(el("div", "section-label", "Thumbnail"));
   const thumbEditor = makeThumbnailEditor(null);
   form.appendChild(thumbEditor.node);
 
-  // Gallery block
+  // Gallery
   form.appendChild(el("div", "section-label", "Gallery Images"));
   const galleryEditor = makeGalleryEditor(null);
   form.appendChild(galleryEditor.node);
@@ -545,7 +594,6 @@ function openCreateModal(onCreated) {
 
   const createBtn = el("button", "btn btn-primary", "Create");
   createBtn.type = "submit";
-
   actions.appendChild(cancelBtn);
   actions.appendChild(createBtn);
   form.appendChild(actions);
@@ -555,12 +603,8 @@ function openCreateModal(onCreated) {
 
     const data = {};
 
-    for (const entry of inputs.entries()) {
-      const key = entry[0];
-      const obj = entry[1];
-      const input = obj.input;
-      const type = obj.type;
-
+    for (const [key, obj] of inputs.entries()) {
+      const { input, type } = obj;
       if (type === "checkbox") {
         data[key] = input.checked;
       } else if (type === "number") {
@@ -571,43 +615,34 @@ function openCreateModal(onCreated) {
       }
     }
 
-    // View array
+    // Merge translations (title, location, description + their *Translations objects)
+    Object.assign(data, transEditor.getValues());
+
+    // View
     const view = [];
-    for (const entry of viewCheckboxes.entries()) {
-      const opt = entry[0];
-      const checkbox = entry[1];
+    for (const [opt, checkbox] of viewCheckboxes.entries()) {
       if (checkbox.checked) view.push(opt);
     }
-    if (view.length > 0) data.view = view;
+    if (view.length) data.view = view;
 
-    // Floor type array
+    // Floor type
     const floorType = [];
-    for (const entry of floorCheckboxes.entries()) {
-      const opt = entry[0];
-      const checkbox = entry[1];
+    for (const [opt, checkbox] of floorCheckboxes.entries()) {
       if (checkbox.checked) floorType.push(opt);
     }
-    if (floorType.length > 0) data.floorType = floorType;
-
-    const galleryFiles = galleryEditor.getUploadFiles();
-    const thumbnailFile = thumbEditor.getFile();
-
-    console.log("\n🆕 CREATE NEW APARTMENT");
+    if (floorType.length) data.floorType = floorType;
 
     try {
       const created = await createApartment(data, {
-        galleryFiles: galleryFiles,
-        thumbnailFile: thumbnailFile,
+        galleryFiles: galleryEditor.getUploadFiles(),
+        thumbnailFile: thumbEditor.getFile(),
       });
 
-      console.log("✅ Apartment created");
-
       await new Promise((r) => setTimeout(r, 500));
-
       backdrop.remove();
       onCreated(created);
     } catch (err) {
-      console.error("❌ Error:", err);
+      console.error(err);
       alert("Failed to create apartment.\n\n" + err.message);
     }
   });
@@ -634,10 +669,15 @@ function openEditModal(offer, onSaved) {
   const form = document.createElement("form");
   const grid = el("div", "form-grid");
 
-  const keys = Object.keys(offer).filter((k) => !["id", "image", "thumbnail", "view", "floorType"].includes(k));
+  // All keys except those handled separately
+  const skipKeys = ["id", "image", "thumbnail", "view", "floorType",
+                    "title", "location", "description",
+                    "titleTranslations", "locationTranslations", "descriptionTranslations"];
+
+  const keys = Object.keys(offer).filter((k) => !skipKeys.includes(k));
 
   const preferred = [
-    "title", "location", "description", "price", "area", "pricePerM2", "floor",
+    "price", "area", "pricePerM2", "floor",
     "propertyType", "apartmentType", "saleType", "seaDistance", "furnished", "assetsDir",
   ];
   const ordered = preferred.filter((k) => keys.includes(k)).concat(keys.filter((k) => !preferred.includes(k)));
@@ -645,7 +685,6 @@ function openEditModal(offer, onSaved) {
   const inputs = new Map();
 
   function guessFieldType(key, value) {
-    if (key === "description") return "textarea";
     if (typeof value === "boolean") return "checkbox";
     if (typeof value === "number") return "number";
     if (Array.isArray(value) || (value && typeof value === "object")) return "textarea";
@@ -661,28 +700,19 @@ function openEditModal(offer, onSaved) {
   function parseEditedValue(originalValue, inputEl) {
     const t = inputEl.dataset.fieldType;
     if (t === "checkbox") return inputEl.checked;
-
     const raw = inputEl.value;
     if (!raw.trim()) return null;
-
     if (t === "number") {
       const n = Number(raw);
       return Number.isFinite(n) ? n : originalValue;
     }
-
     if (Array.isArray(originalValue) || (originalValue && typeof originalValue === "object")) {
-      try {
-        return JSON.parse(raw);
-      } catch (e) {
-        return raw;
-      }
+      try { return JSON.parse(raw); } catch (e) { return raw; }
     }
-
     return raw;
   }
 
-  for (let i = 0; i < ordered.length; i++) {
-    const key = ordered[i];
+  for (const key of ordered) {
     const originalValue = offer[key];
     const fieldType = guessFieldType(key, originalValue);
 
@@ -691,10 +721,9 @@ function openEditModal(offer, onSaved) {
     label.textContent = key;
 
     let input;
-
     if (fieldType === "textarea") {
       input = document.createElement("textarea");
-      input.rows = key === "description" ? 4 : 3;
+      input.rows = 3;
       input.value = valueToString(originalValue);
       input.dataset.fieldType = fieldType;
     } else if (fieldType === "checkbox") {
@@ -711,13 +740,17 @@ function openEditModal(offer, onSaved) {
 
     input.id = "edit_" + key;
     input.name = key;
-
-    inputs.set(key, { input: input, originalValue: originalValue });
+    inputs.set(key, { input, originalValue });
     grid.appendChild(label);
     grid.appendChild(input);
   }
 
   form.appendChild(grid);
+
+  // --- Translations block ---
+  form.appendChild(el("div", "section-label", "Title, Location & Description"));
+  const transEditor = makeTranslationEditor(offer);
+  form.appendChild(transEditor.node);
 
   // View multi-select
   form.appendChild(el("div", "section-label", "View"));
@@ -729,7 +762,7 @@ function openEditModal(offer, onSaved) {
     checkbox.type = "checkbox";
     checkbox.id = "view_" + opt;
     checkbox.value = opt;
-    checkbox.checked = currentView.indexOf(opt) !== -1;
+    checkbox.checked = currentView.includes(opt);
     const label = document.createElement("label");
     label.htmlFor = "view_" + opt;
     label.textContent = opt.charAt(0).toUpperCase() + opt.slice(1);
@@ -742,20 +775,15 @@ function openEditModal(offer, onSaved) {
   // Floor type multi-select
   form.appendChild(el("div", "section-label", "Floor Type"));
   const currentFloor = offer.floorType || [];
-  const floorLabels = {
-    "ground": "Ground Floor",
-    "top": "Top Floor",
-    "no-ground": "Without Ground",
-    "no-top": "Without Top",
-  };
+  const floorLabels = { ground: "Ground Floor", top: "Top Floor", "no-ground": "Without Ground", "no-top": "Without Top" };
   const floorCheckboxes = new Map();
-  ["ground", "top", "no-ground", "no-top"].forEach((opt) => {
+  Object.keys(floorLabels).forEach((opt) => {
     const container = el("div", "checkbox-inline");
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.id = "floor_" + opt;
     checkbox.value = opt;
-    checkbox.checked = currentFloor.indexOf(opt) !== -1;
+    checkbox.checked = currentFloor.includes(opt);
     const label = document.createElement("label");
     label.htmlFor = "floor_" + opt;
     label.textContent = floorLabels[opt];
@@ -765,12 +793,12 @@ function openEditModal(offer, onSaved) {
     floorCheckboxes.set(opt, checkbox);
   });
 
-  // Thumbnail block
+  // Thumbnail
   form.appendChild(el("div", "section-label", "Thumbnail"));
   const thumbEditor = makeThumbnailEditor(offer);
   form.appendChild(thumbEditor.node);
 
-  // Gallery block
+  // Gallery
   form.appendChild(el("div", "section-label", "Gallery"));
   const galleryEditor = makeGalleryEditor(offer);
   form.appendChild(galleryEditor.node);
@@ -786,7 +814,6 @@ function openEditModal(offer, onSaved) {
 
   const saveBtn = el("button", "btn btn-primary", "Save");
   saveBtn.type = "submit";
-
   actions.appendChild(cancelBtn);
   actions.appendChild(saveBtn);
   form.appendChild(actions);
@@ -795,39 +822,32 @@ function openEditModal(offer, onSaved) {
     e.preventDefault();
 
     const updated = {};
-    for (const entry of inputs.entries()) {
-      const key = entry[0];
-      const obj = entry[1];
+    for (const [key, obj] of inputs.entries()) {
       updated[key] = parseEditedValue(obj.originalValue, obj.input);
     }
 
-    // Update view
+    // Merge translations
+    Object.assign(updated, transEditor.getValues());
+
+    // View
     const newView = [];
-    for (const entry of viewCheckboxes.entries()) {
-      const opt = entry[0];
-      const checkbox = entry[1];
+    for (const [opt, checkbox] of viewCheckboxes.entries()) {
       if (checkbox.checked) newView.push(opt);
     }
     updated.view = newView;
 
-    // Update floor type
+    // Floor type
     const newFloor = [];
-    for (const entry of floorCheckboxes.entries()) {
-      const opt = entry[0];
-      const checkbox = entry[1];
+    for (const [opt, checkbox] of floorCheckboxes.entries()) {
       if (checkbox.checked) newFloor.push(opt);
     }
     updated.floorType = newFloor;
 
-    const deleteImages = galleryEditor.getDeleteImages();
-    const galleryFiles = galleryEditor.getUploadFiles();
-    const thumbnailFile = thumbEditor.getFile();
-
     try {
       const saved = await updateApartment(offer.id, updated, {
-        deleteImages: deleteImages,
-        galleryFiles: galleryFiles,
-        thumbnailFile: thumbnailFile,
+        deleteImages: galleryEditor.getDeleteImages(),
+        galleryFiles: galleryEditor.getUploadFiles(),
+        thumbnailFile: thumbEditor.getFile(),
       });
 
       await new Promise((r) => setTimeout(r, 500));
@@ -918,7 +938,6 @@ function createOfferCard(offer) {
   header.appendChild(el("div", "offer-subtitle", ("ID: " + offer.id + " • " + (offer.location || "")).trim()));
   card.appendChild(header);
 
-  // Thumbnail
   const thumb = offer.thumbnail ? resolveAdminImageUrl(offer.thumbnail) : null;
   if (thumb) {
     const thumbWrap = el("div", "offer-thumb");
@@ -931,10 +950,8 @@ function createOfferCard(offer) {
     card.appendChild(thumbWrap);
   }
 
-  // Gallery
   const imagesWrap = el("div", "offer-images");
   const images = normalizeImageList(offer.image);
-
   if (images.length === 0) {
     imagesWrap.appendChild(el("div", "offer-images-empty", "No images"));
   } else {
@@ -954,7 +971,6 @@ function createOfferCard(offer) {
   const actions = el("div", "offer-actions");
   const editBtn = el("button", "btn btn-primary", "Edit");
   const delBtn = el("button", "btn btn-danger", "Delete");
-
   editBtn.type = "button";
   delBtn.type = "button";
 
@@ -995,8 +1011,22 @@ function createOfferCard(offer) {
     }
   });
 
+  // Show translation summary on the card
+  if (offer.titleTranslations || offer.descriptionTranslations) {
+    const transRow = el("div", "kv");
+    transRow.appendChild(el("div", "k", "translations"));
+    const langs = LANGS.map(({ code, label }) => {
+      const t = offer.titleTranslations?.[code];
+      return t ? `${label}: ${t}` : null;
+    }).filter(Boolean).join(" | ");
+    transRow.appendChild(el("div", "v", langs || "—"));
+    grid.appendChild(transRow);
+  }
+
   Object.keys(offer)
-    .filter((k) => !preferredOrder.includes(k) && !["id", "title", "location", "description", "image", "thumbnail"].includes(k))
+    .filter((k) => !preferredOrder.includes(k) &&
+      !["id", "title", "location", "description", "image", "thumbnail",
+        "titleTranslations", "locationTranslations", "descriptionTranslations"].includes(k))
     .forEach((key) => {
       const row = el("div", "kv");
       row.appendChild(el("div", "k", key));
@@ -1013,7 +1043,6 @@ function createOfferCard(offer) {
 async function main() {
   const offersContainer = document.getElementById("offers");
   const messagesContainer = document.getElementById("messages");
-
   const tabA = document.getElementById("tab-apartments");
   const tabM = document.getElementById("tab-messages");
 
@@ -1021,14 +1050,11 @@ async function main() {
 
   setActiveTab("apartments");
 
-  // Add create button
   const createBtn = el("button", "btn btn-success", "+ Create New");
   createBtn.type = "button";
   createBtn.style.marginBottom = "20px";
   createBtn.addEventListener("click", () => {
-    openCreateModal(() => {
-      location.reload();
-    });
+    openCreateModal(() => { location.reload(); });
   });
   offersContainer.parentNode.insertBefore(createBtn, offersContainer);
 
@@ -1049,7 +1075,6 @@ async function main() {
 
   tabM.addEventListener("click", async () => {
     setActiveTab("messages");
-
     messagesContainer.innerHTML = "";
     try {
       const data = await loadMessages();

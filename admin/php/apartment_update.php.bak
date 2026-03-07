@@ -18,39 +18,6 @@ header("Content-Type: application/json; charset=utf-8");
 $jsonPath = __DIR__ . "/../../data/apartment.json";
 $assetsDir = realpath(__DIR__ . "/../../assets/apartments");
 
-/* ---------- Helper: convert any image to JPEG ---------- */
-function saveAsJpeg($tmpPath, $destPath, $quality = 90) {
-  $info = @getimagesize($tmpPath);
-  if (!$info) {
-    return move_uploaded_file($tmpPath, $destPath);
-  }
-  switch ($info[2]) {
-    case IMAGETYPE_JPEG: $src = imagecreatefromjpeg($tmpPath); break;
-    case IMAGETYPE_PNG:  $src = imagecreatefrompng($tmpPath);  break;
-    case IMAGETYPE_GIF:  $src = imagecreatefromgif($tmpPath);  break;
-    case IMAGETYPE_WEBP: $src = imagecreatefromwebp($tmpPath); break;
-    case IMAGETYPE_BMP:  $src = imagecreatefrombmp($tmpPath);  break;
-    case IMAGETYPE_AVIF:
-      $src = function_exists('imagecreatefromavif') ? imagecreatefromavif($tmpPath) : false;
-      break;
-    default: $src = false;
-  }
-  if (!$src) {
-    return move_uploaded_file($tmpPath, $destPath);
-  }
-  // Flatten transparency onto white background
-  $w = imagesx($src);
-  $h = imagesy($src);
-  $canvas = imagecreatetruecolor($w, $h);
-  $white = imagecolorallocate($canvas, 255, 255, 255);
-  imagefill($canvas, 0, 0, $white);
-  imagecopy($canvas, $src, 0, 0, 0, 0, $w, $h);
-  imagedestroy($src);
-  $ok = imagejpeg($canvas, $destPath, $quality);
-  imagedestroy($canvas);
-  return $ok;
-}
-
 // Get data from request
 $id = null;
 $data = null;
@@ -103,40 +70,54 @@ if (!file_exists($apartmentDir)) {
   mkdir($apartmentDir, 0755, true);
 }
 
-// Handle thumbnail upload — always saved as thumbnail.jpg
+// Handle thumbnail upload
 if (isset($_FILES['thumbnail']) && $_FILES['thumbnail']['error'] === UPLOAD_ERR_OK) {
-  $thumbPath = $apartmentDir . "/thumbnail.jpg";
-  if (saveAsJpeg($_FILES['thumbnail']['tmp_name'], $thumbPath)) {
-    $data['thumbnail'] = "/assets/apartments/offer-" . $id . "/thumbnail.jpg";
+  $thumbFile = $_FILES['thumbnail'];
+  $thumbName = "thumbnail." . strtolower(pathinfo($thumbFile['name'], PATHINFO_EXTENSION));
+  $thumbPath = $apartmentDir . "/" . $thumbName;
+  if (move_uploaded_file($thumbFile['tmp_name'], $thumbPath)) {
+    $data['thumbnail'] = "/assets/apartments/offer-" . $id . "/" . $thumbName;
   }
 }
 
-// Start gallery from EXISTING images (JS excludes 'image' from the update payload)
+// Start gallery from EXISTING images (not from $data which won't have 'image')
 $existingImages = isset($apartment['image']) && is_array($apartment['image']) ? $apartment['image'] : [];
 
-// Handle image deletions FIRST
+// Handle image deletions FIRST (delete from disk and remove from existing list)
 if (!empty($deleteImages) && is_array($deleteImages)) {
   foreach ($deleteImages as $imgPath) {
+    // Normalize: strip leading slash for path joining
     $relativePath = ltrim($imgPath, '/');
     $fullPath = realpath($assetsDir . "/../../" . $relativePath);
+
+    // Security: must be inside assets/apartments
     if ($fullPath && $assetsDir && strpos($fullPath, $assetsDir) === 0 && file_exists($fullPath)) {
       unlink($fullPath);
     }
   }
+
+  // Remove deleted images from existing list
   $existingImages = array_values(array_filter($existingImages, function($img) use ($deleteImages) {
     return !in_array($img, $deleteImages);
   }));
 }
 
-// Handle gallery uploads — convert to JPEG and append
+// Handle gallery uploads — append to (already-filtered) existing images
 if (isset($_FILES['images'])) {
   $count = count($_FILES['images']['name']);
+  // Find highest existing image number to avoid collisions
   $imgNum = count($existingImages) + 1;
   for ($i = 0; $i < $count; $i++) {
     if ($_FILES['images']['error'][$i] === UPLOAD_ERR_OK) {
-      $filename = "image-" . time() . "-" . $imgNum . ".jpg";
+      $file = [
+        'name' => $_FILES['images']['name'][$i],
+        'tmp_name' => $_FILES['images']['tmp_name'][$i]
+      ];
+      $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+      // Use timestamp+index to guarantee unique filenames
+      $filename = "image-" . time() . "-" . $imgNum . "." . $ext;
       $filepath = $apartmentDir . "/" . $filename;
-      if (saveAsJpeg($_FILES['images']['tmp_name'][$i], $filepath)) {
+      if (move_uploaded_file($file['tmp_name'], $filepath)) {
         $existingImages[] = "/assets/apartments/offer-" . $id . "/" . $filename;
         $imgNum++;
       }
@@ -144,6 +125,7 @@ if (isset($_FILES['images'])) {
   }
 }
 
+// Set the final merged image array
 $data['image'] = $existingImages;
 
 // Merge with existing apartment data
