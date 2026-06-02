@@ -1,15 +1,33 @@
 /* styles/main.css */
 
+:root {
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #111111;
+  --bg-card: #161616;
+  --bg-elevated: #1c1c1c;
+  --text-primary: #f0f0f0;
+  --text-secondary: #aaaaaa;
+  --text-muted: #666666;
+  --accent-yellow: #f5c518;
+  --accent-yellow-dim: rgba(245, 197, 24, 0.15);
+  --accent-yellow-glow: rgba(245, 197, 24, 0.3);
+  --border-yellow: 1px solid rgba(245, 197, 24, 0.4);
+  --border-yellow-subtle: 1px solid rgba(245, 197, 24, 0.15);
+  --shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+  --shadow-hover: 0 4px 24px rgba(245, 197, 24, 0.12);
+}
+
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;   
+  box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background-color: #fafafa;
+  font-family: 'Georgia', serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
 }
 
 /* ====== HEADER ====== */
@@ -21,13 +39,16 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: aliceblue;
+  background-color: var(--bg-secondary);
+  border-bottom: var(--border-yellow);
 }
 
 h1 {
   padding-left: 300px;
   font-weight: 400;
   font-style: italic;
+  color: var(--accent-yellow);
+  letter-spacing: 1px;
 }
 
 .contactInfo {
@@ -38,9 +59,10 @@ h1 {
 
 .phoneNumber {
   font-size: 1.5rem;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Courier New', monospace;
   letter-spacing: 1px;
   padding-top: 20px;
+  color: var(--text-primary);
 }
 
 .contactIcon {
@@ -49,6 +71,7 @@ h1 {
   width: 50px;
   padding-top: 14px;
   padding-bottom: 10px;
+  filter: brightness(0) saturate(100%) invert(85%) sepia(50%) saturate(600%) hue-rotate(5deg);
 }
 
 .socialMediaToContact {
@@ -62,9 +85,10 @@ h1 {
   justify-content: center;
   align-items: center;
   padding: 10px 20px;
-  background-color: #f8f8f8;
-  color: #333;
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
   position: relative;
+  border-bottom: var(--border-yellow-subtle);
 }
 
 .nav-links {
@@ -80,13 +104,16 @@ h1 {
 }
 
 .nav-links a {
-  color: #333;
+  color: var(--text-secondary);
   text-decoration: none;
   padding: 5px 0;
+  transition: color 0.2s ease;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
 }
 
 .nav-links a:hover {
-  color: #007bff;
+  color: var(--accent-yellow);
 }
 
 /* Dropdown styling */
@@ -95,18 +122,27 @@ h1 {
   position: absolute;
   top: 30px;
   left: 0;
-  background: white;
-  color: #333;
+  background: var(--bg-elevated);
+  color: var(--text-primary);
   min-width: 150px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  box-shadow: var(--shadow);
   list-style: none;
   padding: 0;
   z-index: 100;
+  border: var(--border-yellow);
+  border-radius: 4px;
 }
 
 .dropdown-menu li a {
   padding: 10px 15px;
   display: block;
+  color: var(--text-secondary);
+  transition: background 0.15s, color 0.15s;
+}
+
+.dropdown-menu li a:hover {
+  background-color: var(--accent-yellow-dim);
+  color: var(--accent-yellow);
 }
 
 .dropdown:hover .dropdown-menu {
@@ -125,7 +161,15 @@ h1 {
 select {
   padding: 5px;
   border-radius: 5px;
-  border: 1px solid #ccc;
+  border: var(--border-yellow);
+  background-color: var(--bg-elevated);
+  color: var(--text-primary);
+  font-size: 0.85rem;
+}
+
+select:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--accent-yellow-glow);
 }
 
 /* Buttons */
@@ -133,70 +177,87 @@ select {
   padding: 8px 15px;
   text-decoration: none;
   border-radius: 5px;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  font-size: 0.85rem;
+  letter-spacing: 0.3px;
 }
 
 .btn-apartment {
-  background-color: #28a745;
-  color: white;
+  background-color: transparent;
+  color: var(--accent-yellow);
+  border: var(--border-yellow);
 }
 
 .btn-apartment:hover {
-  background-color: #218838;
+  background-color: var(--accent-yellow-dim);
+  box-shadow: 0 0 8px var(--accent-yellow-glow);
 }
 
 .btn-login {
-  background-color: #007bff;
-  color: white;
+  background-color: var(--bg-elevated);
+  color: var(--text-primary);
+  border: var(--border-yellow-subtle);
 }
 
 .btn-login:hover {
-  background-color: #0056b3;
+  border-color: rgba(245, 197, 24, 0.6);
+  color: var(--accent-yellow);
 }
 
 .btn-signup {
-  background-color: #ffc107;
-  color: black;
+  background-color: var(--accent-yellow);
+  color: #0a0a0a;
+  font-weight: 600;
+  border: 1px solid var(--accent-yellow);
 }
 
 .btn-signup:hover {
-  background-color: #e0a800;
+  background-color: #d4aa14;
+  box-shadow: 0 0 10px var(--accent-yellow-glow);
 }
 
 .btn-view {
-  background-color: #007bff;
-  color: white;
+  background-color: transparent;
+  color: var(--accent-yellow);
   padding: 8px 16px;
   font-size: 0.9rem;
   margin-top: 10px;
   display: inline-block;
   text-decoration: none;
+  border: var(--border-yellow);
+  border-radius: 5px;
+  transition: background 0.2s, box-shadow 0.2s;
 }
 
 .btn-view:hover {
-  background-color: #0056b3;
+  background-color: var(--accent-yellow-dim);
+  box-shadow: 0 0 10px var(--accent-yellow-glow);
 }
 
 /* ====== APARTMENT FILTER ====== */
 .apartment-filter {
   float: left;
-  background-color: #f9fafb;
+  background-color: var(--bg-primary);
   padding: 30px 20px;
 }
 
 .apartment-filter .container {
   max-width: 340px;
-  background: #fff;
+  background: var(--bg-card);
   border-radius: 16px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  box-shadow: var(--shadow);
   padding: 25px;
   margin-left: 200px;
+  border: var(--border-yellow-subtle);
 }
 
 .apartment-filter h2 {
   text-align: center;
   margin-bottom: 20px;
   font-size: 1.4rem;
+  color: var(--accent-yellow);
+  font-weight: 400;
+  letter-spacing: 0.5px;
 }
 
 .filter-form {
@@ -208,7 +269,7 @@ select {
 .filter-group label {
   font-weight: 500;
   font-size: 0.9rem;
-  color: #555;
+  color: var(--text-secondary);
   margin-bottom: 6px;
   display: block;
 }
@@ -217,9 +278,19 @@ select {
 .filter-group input[type="number"] {
   width: 100%;
   padding: 8px;
-  border: 1px solid #ccc;
+  border: var(--border-yellow-subtle);
   border-radius: 8px;
   font-size: 0.95rem;
+  background-color: var(--bg-elevated);
+  color: var(--text-primary);
+  transition: border-color 0.2s;
+}
+
+.filter-group select:focus,
+.filter-group input[type="number"]:focus {
+  outline: none;
+  border-color: rgba(245, 197, 24, 0.5);
+  box-shadow: 0 0 0 2px var(--accent-yellow-dim);
 }
 
 .range-wrapper {
@@ -244,20 +315,29 @@ select {
   align-items: center;
   gap: 6px;
   cursor: pointer;
+  color: var(--text-secondary);
+}
+
+.checkboxes input[type="checkbox"] {
+  accent-color: var(--accent-yellow);
 }
 
 /* ====== APARTMENT LISTINGS ====== */
 .apartment-listing {
   margin-left: 580px;
   padding: 30px 40px;
-  background-color: #fff;
+  background-color: var(--bg-primary);
   min-height: 600px;
 }
 
 .listing-container h2 {
   font-size: 1.8rem;
   margin-bottom: 25px;
-  color: #333;
+  color: var(--text-primary);
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  border-bottom: var(--border-yellow-subtle);
+  padding-bottom: 12px;
 }
 
 .apartments-grid {
@@ -266,25 +346,27 @@ select {
   gap: 25px;
 }
 
-/* Apartment Card - FIXED TO DISPLAY IN ONE LINE */
+/* Apartment Card */
 .apartment-card {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  background-color: #fdfdfd;
+  background-color: var(--bg-card);
   border-radius: 16px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: var(--shadow);
   overflow: hidden;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
   cursor: pointer;
   padding: 15px;
   gap: 20px;
   width: 100%;
+  border: var(--border-yellow-subtle);
 }
 
 .apartment-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  box-shadow: var(--shadow-hover);
+  border-color: rgba(245, 197, 24, 0.5);
 }
 
 .apartment-card img {
@@ -293,6 +375,7 @@ select {
   border-radius: 12px;
   object-fit: cover;
   flex-shrink: 0;
+  border: var(--border-yellow-subtle);
 }
 
 .apartment-info {
@@ -306,22 +389,23 @@ select {
 .apartment-info h3 {
   font-size: 1.2rem;
   margin-bottom: 8px;
-  color: #333;
+  color: var(--text-primary);
+  font-weight: 500;
 }
 
 .apartment-info p {
   font-size: 0.9rem;
-  color: #555;
+  color: var(--text-secondary);
   margin: 4px 0;
 }
 
 .apartment-info .location {
-  color: #777;
+  color: var(--text-muted);
   font-size: 0.85rem;
 }
 
 .apartment-info .price {
-  color: #007bff;
+  color: var(--accent-yellow);
   font-weight: 600;
   font-size: 1.1rem;
   margin-top: 6px;
@@ -329,7 +413,7 @@ select {
 
 .apartment-info .details {
   font-size: 0.85rem;
-  color: #777;
+  color: var(--text-muted);
   margin-top: 8px;
   margin-bottom: 10px;
 }
@@ -338,7 +422,7 @@ select {
   .apartment-listing {
     margin-left: 400px;
   }
-  
+
   .apartment-filter .container {
     margin-left: 50px;
   }
@@ -387,12 +471,12 @@ select {
 
 /* ====== FOOTER ====== */
 .main-footer {
-  background-color: #f8f8f8;
-  color: #333;
-  font-family: Arial, sans-serif;
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  font-family: 'Georgia', serif;
   padding: 40px 20px 20px 20px;
   margin-top: 40px;
-  border-top: 1px solid #e0e0e0;
+  border-top: var(--border-yellow);
   clear: both;
 }
 
@@ -413,13 +497,14 @@ select {
   font-size: 1rem;
   margin-bottom: 10px;
   font-weight: 600;
-  color: #000;
+  color: var(--accent-yellow);
+  letter-spacing: 0.5px;
 }
 
 .footer-section p {
   font-size: 0.9rem;
   line-height: 1.5;
-  color: #555;
+  color: var(--text-secondary);
 }
 
 .footer-section ul {
@@ -432,13 +517,14 @@ select {
 }
 
 .footer-section ul li a {
-  color: #333;
+  color: var(--text-secondary);
   text-decoration: none;
   font-size: 0.9rem;
+  transition: color 0.2s;
 }
 
 .footer-section ul li a:hover {
-  color: #007bff;
+  color: var(--accent-yellow);
 }
 
 /* Social icons */
@@ -451,11 +537,13 @@ select {
 .footer-socials img {
   width: 28px;
   height: 28px;
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, filter 0.2s ease;
+  filter: brightness(0.7);
 }
 
 .footer-socials img:hover {
   transform: scale(1.1);
+  filter: brightness(1) sepia(1) saturate(5) hue-rotate(5deg);
 }
 
 /* Divider and bottom area */
@@ -463,11 +551,11 @@ select {
   margin: 25px auto 15px;
   width: 90%;
   border: 0;
-  border-top: 1px solid #ddd;
+  border-top: var(--border-yellow-subtle);
 }
 
 .footer-bottom {
   text-align: center;
   font-size: 0.85rem;
-  color: #777;
+  color: var(--text-muted);
 }
